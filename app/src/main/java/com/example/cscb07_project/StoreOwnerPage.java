@@ -37,15 +37,20 @@ public class StoreOwnerPage extends AppCompatActivity implements View.OnClickLis
         userID = getIntent().getStringExtra("userID");
 
     }
-}
+
+    public void ownerLogout(View view){
+        startActivity(new Intent(this, MainActivity.class));
+    }
 
     //private void addItem() {
-        //Intent intent = new Intent(this, updateProductActivity.class);
-        // intent.putExtra("store", store);
-        //intent.putExtra("store", store);
-        //startActivity(intent);
+    //Intent intent = new Intent(this, updateProductActivity.class);
+    // intent.putExtra("store", store);
+    //intent.putExtra("store", store);
+    //startActivity(intent);
     //}
     @Override
     public void onClick(View view) {
 
     }
+}
+
