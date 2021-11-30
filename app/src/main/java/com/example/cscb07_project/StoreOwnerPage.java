@@ -39,17 +39,13 @@ public class StoreOwnerPage extends AppCompatActivity implements View.OnClickLis
     }
 }
 
-    private void addItem() {
-        Intent intent = new Intent(this, updateProductActivity.class);
+    //private void addItem() {
+        //Intent intent = new Intent(this, updateProductActivity.class);
         // intent.putExtra("store", store);
-        intent.putExtra("store", store);
-        startActivity(intent);
-    }
+        //intent.putExtra("store", store);
+        //startActivity(intent);
+    //}
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnAddItem:
-                addItem();
-                break;
-        }
+
     }

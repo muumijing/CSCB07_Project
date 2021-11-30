@@ -15,7 +15,7 @@ import com.example.cscb07_project.R;
 import java.util.List;
 
 public class categoryAdapter {
-    public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+    public static class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
         Context context;
         List<Category> categoryList;
