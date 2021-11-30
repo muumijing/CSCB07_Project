@@ -18,24 +18,23 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CustomerRegister extends AppCompatActivity {
+public class OwnerRegister extends AppCompatActivity {
 
     private EditText inputUsername;
     private EditText inputEmail;
     private EditText inputPassword;
-
+    // private boolean registered = false;
 
     FirebaseDatabase db;
     DatabaseReference ref;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_register);
+        setContentView(R.layout.activity_owner_register);
     }
 
-    public void customerRegister(View view){
+    public void ownerRegister(View view){
 
         inputUsername = findViewById(R.id.username);
         inputEmail = findViewById(R.id.email);
@@ -47,8 +46,9 @@ public class CustomerRegister extends AppCompatActivity {
 
         boolean isValidInput = validateInput();
 
+
         db = FirebaseDatabase.getInstance();
-        ref = db.getReference("Users");
+        ref = db.getReference("Owners");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -58,25 +58,25 @@ public class CustomerRegister extends AppCompatActivity {
                     String email1 = ds.child("email").getValue(String.class);
                     String username1 = ds.child("username").getValue(String.class);
                     if(email.equals(email1)){
-                        Toast.makeText(CustomerRegister.this, "Email has been registered", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OwnerRegister.this, "Email has been registered", Toast.LENGTH_SHORT).show();
                         registered = true;
                     }
                     else if(username.equals(username1)){
-                        Toast.makeText(CustomerRegister.this, "Username has been registered", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OwnerRegister.this, "Username has been registered", Toast.LENGTH_SHORT).show();
                         registered = true;
                     }
                 }
+
                 if(isValidInput && !registered){
-                    User user = new User(username, email, password);
-                    ref.child(username).setValue(user);
-                    Toast.makeText(CustomerRegister.this, "Registered successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(CustomerRegister.this, CustomerLogin.class));
+                    Owner owner = new Owner(username, email, password);
+                    ref.child(username).setValue(owner);
+                    Toast.makeText(OwnerRegister.this, "Registered successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(OwnerRegister.this, OwnerLogin.class));
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
-
 
 
     }
@@ -136,5 +136,6 @@ public class CustomerRegister extends AppCompatActivity {
         isValidPassword = !password.isEmpty() && ! (password.length() < 12) && containsDigit && containsLetter;
         return isValidUsername && isValidEmail && isValidPassword;
     }
+
 
 }

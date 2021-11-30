@@ -22,6 +22,7 @@ public class CustomerLogin extends AppCompatActivity {
     private EditText inputEmail;
     private EditText inputPassword;
     private int tolerance = 3;
+    private boolean found = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +50,9 @@ public class CustomerLogin extends AppCompatActivity {
                 for(DataSnapshot ds: snapshot.getChildren()){
                     String e = ds.child("email").getValue(String.class);
                     String p = ds.child("password").getValue(String.class);
-
-                    System.out.println(e);
-                    System.out.println(email.equals(e));
                     if(e.equals(email)){
+                        found = true;
+                        // System.out.println("found email");
                         String username = ds.child("username").getValue(String.class);
                         String login = ds.child("login").getValue(String.class);
                         String locked = ds.child("locked").getValue(String.class);
@@ -64,6 +64,7 @@ public class CustomerLogin extends AppCompatActivity {
                             Intent intent = new Intent(CustomerLogin.this, CustomerPage.class);
                             intent.putExtra("message", username);
                             startActivity(intent);
+                            return;
                         }
                         else if(p.equals(password)){
                             Toast.makeText(CustomerLogin.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
@@ -71,6 +72,7 @@ public class CustomerLogin extends AppCompatActivity {
                             Intent intent = new Intent(CustomerLogin.this, CustomerPage.class);
                             intent.putExtra("message", username);
                             startActivity(intent);
+                            return;
                         }
                         else{
                             tolerance = tolerance - 1;
@@ -87,18 +89,18 @@ public class CustomerLogin extends AppCompatActivity {
                         }
 
                     }
-                    else{
-                        Toast.makeText(CustomerLogin.this, "Email has not been registered", Toast.LENGTH_SHORT).show();
-                    }
-
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
+
+        // System.out.println(found);
+
+        if(!found){
+            System.out.println("Email not found");
+        }
     }
 
     public void write(String username, String field, String data){

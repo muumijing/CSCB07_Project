@@ -7,12 +7,13 @@
         <entry key="app/src/main/res/drawable/ic_shopping_cart.xml" value="0.309375" />
         <entry key="app/src/main/res/drawable/search_background.xml" value="0.309375" />
         <entry key="app/src/main/res/layout/activity_category.xml" value="0.4973958333333333" />
-        <entry key="app/src/main/res/layout/activity_customer_login.xml" value="0.225" />
+        <entry key="app/src/main/res/layout/activity_customer_login.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_customer_page.xml" value="0.225" />
         <entry key="app/src/main/res/layout/activity_customer_register.xml" value="0.225" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.225" />
-        <entry key="app/src/main/res/layout/activity_owner_login.xml" value="0.225" />
+        <entry key="app/src/main/res/layout/activity_owner_login.xml" value="0.45" />
         <entry key="app/src/main/res/layout/activity_owner_page.xml" value="0.225" />
+        <entry key="app/src/main/res/layout/activity_owner_register.xml" value="0.49765502866076083" />
         <entry key="app/src/main/res/layout/activity_store_page.xml" value="0.39067524115755625" />
         <entry key="app/src/main/res/layout/activity_update_products.xml" value="0.4625641025641026" />
       </map>

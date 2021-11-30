@@ -4,22 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OwnerLogin">
+    tools:context=".OwnerRegister">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding = "16dp"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        >
+
+        <EditText
+            android:id = "@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/textOfUsername"
+            android:ems="30"/>
 
         <EditText
             android:id = "@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/textOfEmail"
-
             android:ems="30"/>
+
 
         <EditText
             android:id="@+id/password"
@@ -29,28 +37,15 @@
             android:hint="@string/textOfPassword"
             android:inputType="textPassword" />
 
-
         <Button
-            android:id="@+id/ownerLogin"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="@string/customerLogin"
-            android:onClick="ownerLogin"
-            />
-
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Don't have an account"
-            />
-
-        <Button
-            android:id="@+id/ownerRegister"
-            android:layout_width="150dp"
+            android:id="@+id/register"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/customerRegister"
-            android:onClick="onOwnerRegister"/>
+            android:layout_marginTop="20dp"
+            android:onClick="ownerRegister"/>
 
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
