@@ -8,6 +8,7 @@ public class Store {
     public List<Product> products_inventory;
     public List<String> orders;
 
+    public String owner;
     public Store(String storeName){
         this.storeName = storeName;
         products_inventory = new ArrayList<Product>();

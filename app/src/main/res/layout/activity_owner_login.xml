@@ -34,9 +34,8 @@
             android:id="@+id/ownerLogin"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/customerLogin"
             android:onClick="ownerLogin"
-            />
+            android:text="@string/customerLogin" />
 
         <TextView
             android:layout_width="150dp"
