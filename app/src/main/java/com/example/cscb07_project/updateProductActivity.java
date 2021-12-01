@@ -7,7 +7,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class updateProductActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText addProductName, addPrice, addQuantity;
@@ -15,8 +22,10 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
 
     private int i;
     private Store store;
-    private String userID;
+    private String username;
 
+    private FirebaseDatabase db;
+    private DatabaseReference ref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +33,7 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
 
         store = (Store) getIntent().getSerializableExtra("store");
 
-        userID = getIntent().getStringExtra("usrID");
+        username = getIntent().getStringExtra("username");
 
         addProductName = (EditText) findViewById(R.id.addProductName);
         addPrice = (EditText) findViewById(R.id.addPrice);
@@ -63,9 +72,32 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
 
         // update fire base
 
+        db = FirebaseDatabase.getInstance();
+        ref = db.getReference("Stores");
+        //write(addProductName.getText().toString().trim(),"products", "true");
 
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean registered = false;
+                for(DataSnapshot ds: snapshot.getChildren()){
+                    String owner = ds.child("email").getValue(String.class);
+                    String products = ds.child("username").getValue(String.class);
 
+                    ref.child(products).setValue(addProductName);
+                    Toast.makeText(updateProductActivity.this, "Updated successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(updateProductActivity.this, StoreOwnerPage.class));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
     }
+    //public void write(String product, String field, String data){
+       // db = FirebaseDatabase.getInstance();
+        //ref = db.getReference("Stores");
+        //ref.child(product).child(field).setValue(data);
+   // }
 
     @Override
     public void onClick(View v) {

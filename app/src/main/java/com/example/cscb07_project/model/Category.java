@@ -1,4 +1,4 @@
-package com.example.cscb07_project;
+package com.example.cscb07_project.model;
 
 public class Category {
     Integer id;

@@ -1,38 +1,43 @@
 package com.example.cscb07_project;
 
+import static com.example.cscb07_project.R.drawable.ic_home_fish;
+import static com.example.cscb07_project.R.drawable.ic_home_fruits;
+import static com.example.cscb07_project.R.drawable.ic_home_meats;
+import static com.example.cscb07_project.R.drawable.ic_home_veggies;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cscb07_project.adapter.CategoryAdapter;
+import com.example.cscb07_project.model.Category;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
-
-
 
 public class StoreOwnerPage extends AppCompatActivity implements View.OnClickListener{
 
     private String username = "";
     private FirebaseDatabase db;
     private DatabaseReference ref;
-
-    //private Store store;
+    private Button button;
+    private Store store;
 
     RecyclerView categoryRecyclerView;
 
-
-    //List<Category> categoryList;
+    CategoryAdapter categoryAdapter;
+    List<Category> categoryList;
 
     //TextView allCategory;
 
@@ -40,13 +45,39 @@ public class StoreOwnerPage extends AppCompatActivity implements View.OnClickLis
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_page);
+
         categoryRecyclerView = findViewById(R.id.categoryRecycler);
         Intent intent = getIntent();
+
         username = intent.getStringExtra("message");
-        TextView tv = (TextView)findViewById(R.id.welcome);
-        tv.setText("Welcome Owner" + username);
+        //TextView tv = (TextView)findViewById(R.id.welcome);
+        //tv.setText("Welcome Owner" + username);
+
+        // adding data to model
+        categoryList = new ArrayList<>();
+        categoryList.add(new Category(1,ic_home_fruits));
+        categoryList.add(new Category(2,ic_home_fish));
+        categoryList.add(new Category(3,ic_home_meats));
+        categoryList.add(new Category(4,ic_home_veggies));
+
+        setCategoryRecycler(categoryList);
+        button = (Button) findViewById(R.id.AddItem);
+        button.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                addItem();
+            }
+        });
 
 
+    }
+
+    private void setCategoryRecycler(List<Category> categoryDataList) {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        categoryRecyclerView.setLayoutManager(layoutManager);
+        categoryAdapter = new CategoryAdapter(this,categoryDataList);
+        categoryRecyclerView.setAdapter(categoryAdapter);
     }
 
     public void ownerLogout(View view){
@@ -71,20 +102,23 @@ public class StoreOwnerPage extends AppCompatActivity implements View.OnClickLis
         });
 
     }
+
+
     public void write(String username, String field, String data){
         db = FirebaseDatabase.getInstance();
-        ref = db.getReference("Owners");
+        ref = db.getReference("Stores");
         ref.child(username).child(field).setValue(data);
     }
-    //private void addItem() {
-    //Intent intent = new Intent(this, updateProductActivity.class);
-    // intent.putExtra("store", store);
-    //intent.putExtra("store", store);
-    //startActivity(intent);
-    //}
-    @Override
-    public void onClick(View view) {
+    public void addItem() {
+        Intent intent = new Intent(this, updateProductActivity.class);
+        //intent.putExtra("store", store);
+        startActivity(intent);
+    }
 
+
+    @Override
+    public void onClick(View v) {
+        addItem();
     }
 }
 
