@@ -123,4 +123,14 @@ public class Order extends AppCompatActivity {
         });
     }
 
+    public Order (String storeName, String customerId){
+        this.status = "pending";
+        this.store = storeName;
+        customer = customerId;
+    }
+
+    public void addProducts (Product product){
+        orderProducts.add(product);
+    }
+
 }

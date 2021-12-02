@@ -18,14 +18,18 @@
             android:layout_height="wrap_content"
             android:text="Welcome" />
 
-
+        <Button
+            android:id="@+id/ShoppingCarbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shopping Car" />
 
         <Button
             android:id="@+id/customerLogout"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/customerLogout"
-            android:onClick="customerLogout"/>
+            android:onClick="customerLogout"
+            android:text="@string/customerLogout" />
 
     </LinearLayout>
 

@@ -6,7 +6,6 @@ public class Product {
     public int inventory_quantity;
     public String introduction;
 
-    public Product () {}
     public Product(String name, double price, int inventory_quantity) {
         this.name = name;
         this.price = price;

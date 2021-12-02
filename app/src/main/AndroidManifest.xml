@@ -16,6 +16,9 @@
             android:name=".StoreOwnerPage"
             android:exported="false" />
         <activity
+            android:name=".PlaceOrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".OwnerRegister"
             android:exported="false" />
         <activity
@@ -32,6 +35,15 @@
             android:exported="false" />
         <activity
             android:name=".CustomerLogin"
+            android:exported="false" />
+        <activity
+            android:name=".PopupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DisplayItemsInShoppingCarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ShoppingCar"
             android:exported="false" />
         <activity
             android:name=".CreateStoreActivity"
