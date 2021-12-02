@@ -14,4 +14,5 @@
     <string name="ownerLogout">Logout</string>
     <string name="message">message</string>
     <string name="welcome">welcome</string>
+    <string name="phoneNum">phoneNum</string>
 </resources>
