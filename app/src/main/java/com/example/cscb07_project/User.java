@@ -6,9 +6,8 @@ public class User {
     public String email;
     public String password;
     public String phoneNum;
-
-    public String login = "false";
     public String locked = "false";
+    
     public User(){};
     public User(String username, String email, String password, String phoneNum){
         this.username = username;
