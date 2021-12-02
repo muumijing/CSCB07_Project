@@ -60,7 +60,7 @@ public class OwnerLogin extends AppCompatActivity {
                         String ownerId = "owner" + phoneNum;
                         String locked = ds.child("locked").getValue(String.class);
                         if(locked.equals("true")){
-                            Toast.makeText(OwnerLogin.this, "Your account has been locked", Toast.LENGTH_SHORT).show();
+                            inputEmail.setError("Your account has been locked");
                             return;
                         }
                         else if(p.equals(password)){
@@ -80,8 +80,9 @@ public class OwnerLogin extends AppCompatActivity {
                                 Toast.makeText(OwnerLogin.this, "Incorrect password. Please try again.", Toast.LENGTH_SHORT).show();
                             }
                             if(tolerance == 0){
-                                write(username, "locked", "true");
-                                Toast.makeText(OwnerLogin.this, "Your account will be locked", Toast.LENGTH_SHORT).show();
+                                write(ownerId, "locked", "true");
+                                inputEmail.setError("Your account will be locked");
+                                
                                 return;
                             }
                         }
