@@ -35,16 +35,17 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_products);
         model = Model.getInstance();
-
+        Intent intent = getIntent();
+        ownerId = intent.getStringExtra("ownerId");
         save = (Button) findViewById(R.id.save);
         save.setOnClickListener(this);
-        //getStore();
+        getStore();
 
 
     }
 
     private void getStore() {
-        model.getStoreByOwner(username, (Store store) -> {
+        model.getStoreByOwner(ownerId, (Store store) -> {
 
             this.store = store;
             //ItemListAdapter adapter = new ItemListAdapter(this, R.layout.item_list_item, store.inventory);
@@ -64,6 +65,14 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
         addQuantity = (EditText) findViewById(R.id.addQuantity);
         storesRef = FirebaseDatabase.getInstance().getReference("Stores");
 
+        Product product = new Product(
+                addProductName.getText().toString().trim(),
+                Double.parseDouble(addPrice.getText().toString()),
+                Integer.parseInt(addQuantity.getText().toString())
+        );
+        String productName = addProductName.getText().toString().trim();
+        Double productPrice = Double.parseDouble(addPrice.getText().toString());
+        int productQuantity = Integer.parseInt(addQuantity.getText().toString());
 
         storesRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -71,20 +80,18 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
 
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     String ownerID = ds.child("owner").getValue(String.class);
-                    System.out.println(ownerID);
-                    System.out.println(ownerId);
+
                     //String username1 = ds.child("username").getValue(String.class);
-                    Product product = new Product(
-                            addProductName.getText().toString().trim(),
-                            Double.parseDouble(addPrice.getText().toString()),
-                            Integer.parseInt(addQuantity.getText().toString())
-                    );
+
                     if (ownerID.equals(ownerId)) {
-                        storesRef.child(storeName).child("products").child("name").setValue(addProductName.getText().toString().trim());
-                        storesRef.child(storeName).child("products").child("price").setValue(addPrice.getText().toString());
-                        storesRef.child(storeName).child("products").child("quantity").setValue(addQuantity.getText().toString());
+
+                        storesRef.child(storeName).child("products").child(productName).setValue(product);
+
                         Toast.makeText(updateProductActivity.this, "product has been saved", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(updateProductActivity.this, StoreOwnerPage.class));
+                        Intent intent = new Intent(updateProductActivity.this, StoreOwnerPage.class);
+                        intent.putExtra("ownerId", ownerId);
+                        intent.putExtra("storeName", storeName);
+                        startActivity(intent);
                     }
                 }
 
@@ -96,6 +103,19 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
 
             }
         });
+
+
+        if(!store.products_inventory.contains(productName)){
+            store.products_inventory.add(product);
+        }
+        else{
+            for(Product p : store.products_inventory){
+                if(p.name.equals(productName)){
+                    p.inventory_quantity = productQuantity;
+                    p.price = productPrice;
+                }
+            }
+        }
 
     }
 
