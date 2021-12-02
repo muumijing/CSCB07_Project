@@ -23,6 +23,7 @@ public class CustomerRegister extends AppCompatActivity {
     private EditText inputUsername;
     private EditText inputEmail;
     private EditText inputPassword;
+    private EditText inputPhoneNum;
 
 
     FirebaseDatabase db;
@@ -40,36 +41,39 @@ public class CustomerRegister extends AppCompatActivity {
         inputUsername = findViewById(R.id.username);
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
+        inputPhoneNum = findViewById(R.id.phoneNum);
 
         String username = inputUsername.getText().toString();
         String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
+        String phoneNum = inputPhoneNum.getText().toString();
+        String customerId = "customer" + phoneNum;
 
         boolean isValidInput = validateInput();
 
         db = FirebaseDatabase.getInstance();
-        ref = db.getReference("Users");
-
+        ref = db.getReference("Customers");
+        
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean registered = false;
                 for(DataSnapshot ds: snapshot.getChildren()){
                     String email1 = ds.child("email").getValue(String.class);
-                    String username1 = ds.child("username").getValue(String.class);
+                    String customerId1 = ds.child("customerId").getValue(String.class);
                     if(email.equals(email1)){
                         inputEmail.setError("Email has been registered");
                     
                         registered = true;
                     }
-                    else if(username.equals(username1)){
+                    else if(customerId.equals(customerId1)){
                         inputPhoneNum.setError("Phone number has been registered");
                         registered = true;
                     }
                 }
                 if(isValidInput && !registered){
-                    User user = new User(username, email, password);
-                    ref.child(username).setValue(user);
+                    Customer customer = new Customer(username, email, password, phoneNum);
+                    ref.child(customerId).setValue(customer);
                     Toast.makeText(CustomerRegister.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(CustomerRegister.this, CustomerLogin.class));
                 }
@@ -98,15 +102,18 @@ public class CustomerRegister extends AppCompatActivity {
         if(!isValidUsername){
             inputUsername.setError("Please enter your username");
             inputUsername.requestFocus();
+            return false;
         }
 
         if(email.isEmpty()){
             inputEmail.setError("Please enter your email");
             inputEmail.requestFocus();
+            return false;
         }
         else if(!isValidEmail){
             inputEmail.setError("Email is not valid");
             inputEmail.requestFocus();
+            return false;
         }
 
         Pattern p = Pattern.compile(".*[a-zA-Z].*");
@@ -120,18 +127,22 @@ public class CustomerRegister extends AppCompatActivity {
         if(password.isEmpty()){
             inputPassword.setError("Please enter your password");
             inputPassword.requestFocus();
+            return false;
         }
         else if(password.length() < 12){
             inputPassword.setError("Password must contain at least 12 characters");
             inputPassword.requestFocus();
+            return false;
         }
         else if(!containsDigit){
             inputPassword.setError("Password must contain at least one digit");
             inputPassword.requestFocus();
+            return false;
         }
         else if(!containsLetter){
             inputPassword.setError("Password must contain at least one letter");
             inputPassword.requestFocus();
+            return false;
         }
 
         isValidPassword = !password.isEmpty() && ! (password.length() < 12) && containsDigit && containsLetter;
