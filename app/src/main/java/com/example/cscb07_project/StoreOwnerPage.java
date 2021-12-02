@@ -98,26 +98,7 @@ public class StoreOwnerPage extends AppCompatActivity{
     }
 
     public void ownerLogout(View view){
-        db = FirebaseDatabase.getInstance();
-        ref = db.getReference("Owners");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds: snapshot.getChildren()){
-                    String name = ds.child("username").getValue(String.class);
-                    if(name.equals(username)){
-                        write(username, "login", "false");
-                        startActivity (new Intent(StoreOwnerPage.this, MainActivity.class));
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
+        startActivity (new Intent(StoreOwnerPage.this, MainActivity.class));
     }
 
 

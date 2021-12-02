@@ -58,17 +58,9 @@ public class OwnerLogin extends AppCompatActivity {
                         String phoneNum = ds.child("phoneNum").getValue(String.class);
                         String username = ds.child("username").getValue(String.class);
                         String ownerId = "owner" + phoneNum;
-                        String login = ds.child("login").getValue(String.class);
                         String locked = ds.child("locked").getValue(String.class);
                         if(locked.equals("true")){
-                            Toast.makeText(OwnerLogin.this, "Your account has been locked", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        else if(login.equals("true")){
-                            Intent intent = new Intent(OwnerLogin.this, StoreOwnerPage.class);
-                            intent.putExtra("username", username);
-                            intent.putExtra("ownerId", ownerId);
-                            startActivity(intent);
+                            inputEmail.setError("Your account has been locked");
                             return;
                         }
                         else if(p.equals(password)){
@@ -88,8 +80,9 @@ public class OwnerLogin extends AppCompatActivity {
                                 Toast.makeText(OwnerLogin.this, "Incorrect password. Please try again.", Toast.LENGTH_SHORT).show();
                             }
                             if(tolerance == 0){
-                                write(username, "locked", "true");
-                                Toast.makeText(OwnerLogin.this, "Your account will be locked", Toast.LENGTH_SHORT).show();
+                                write(ownerId, "locked", "true");
+                                inputEmail.setError("Your account will be locked");
+                                
                                 return;
                             }
                         }
@@ -100,13 +93,6 @@ public class OwnerLogin extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-        System.out.println(found);
-
-        if(!found){
-            Toast.makeText(OwnerLogin.this, "Email not registered", Toast.LENGTH_SHORT).show();
-            System.out.println("Email not found");
-        }
     }
 
     public void write(String userId, String field, String data){
