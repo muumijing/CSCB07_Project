@@ -58,11 +58,12 @@ public class CustomerRegister extends AppCompatActivity {
                     String email1 = ds.child("email").getValue(String.class);
                     String username1 = ds.child("username").getValue(String.class);
                     if(email.equals(email1)){
-                        Toast.makeText(CustomerRegister.this, "Email has been registered", Toast.LENGTH_SHORT).show();
+                        inputEmail.setError("Email has been registered");
+                    
                         registered = true;
                     }
                     else if(username.equals(username1)){
-                        Toast.makeText(CustomerRegister.this, "Username has been registered", Toast.LENGTH_SHORT).show();
+                        inputPhoneNum.setError("Phone number has been registered");
                         registered = true;
                     }
                 }
