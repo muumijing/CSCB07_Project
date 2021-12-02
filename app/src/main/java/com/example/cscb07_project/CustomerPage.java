@@ -49,25 +49,6 @@ public class CustomerPage extends AppCompatActivity {
     }
 
     public void customerLogout(View view){
-        db = FirebaseDatabase.getInstance();
-        ref = db.getReference("Customers");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds: snapshot.getChildren()){
-                    String customerId1 = "customer" + ds.child("phoneNum").getValue(String.class);
-                    if(customerId1.equals(customerId)){
-                        ref.child(customerId).child("login").setValue("false");
-                        // write(username, "login", "false");
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
         startActivity (new Intent(CustomerPage.this, MainActivity.class));
 
     }
