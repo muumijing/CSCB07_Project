@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StoreOwnerPage extends AppCompatActivity implements View.OnClickListener{
+public class StoreOwnerPage extends AppCompatActivity{
 
     private String username = "";
     private FirebaseDatabase db;
@@ -39,7 +39,6 @@ public class StoreOwnerPage extends AppCompatActivity implements View.OnClickLis
     CategoryAdapter categoryAdapter;
     List<Category> categoryList;
 
-    //TextView allCategory;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -61,14 +60,14 @@ public class StoreOwnerPage extends AppCompatActivity implements View.OnClickLis
         categoryList.add(new Category(4,ic_home_veggies));
 
         setCategoryRecycler(categoryList);
-        button = (Button) findViewById(R.id.AddItem);
-        button.setOnClickListener(new View.OnClickListener(){
+        //button = (Button) findViewById(R.id.AddItem);
+        //button.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View v) {
-                addItem();
-            }
-        });
+            //@Override
+            //public void onClick(View v) {
+                //addItem();
+            //}
+        //});
 
 
     }
@@ -109,16 +108,13 @@ public class StoreOwnerPage extends AppCompatActivity implements View.OnClickLis
         ref = db.getReference("Stores");
         ref.child(username).child(field).setValue(data);
     }
-    public void addItem() {
+    public void addItem(View view) {
         Intent intent = new Intent(this, updateProductActivity.class);
-        //intent.putExtra("store", store);
+        intent.putExtra("message", username);
         startActivity(intent);
     }
 
 
-    @Override
-    public void onClick(View v) {
-        addItem();
-    }
+
 }
 

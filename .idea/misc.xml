@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/drawable/ic_home_veggies.xml" value="0.5018518518518519" />
         <entry key="app/src/main/res/drawable/ic_shopping_cart.xml" value="0.309375" />
         <entry key="app/src/main/res/drawable/search_background.xml" value="0.309375" />
+        <entry key="app/src/main/res/layout/activity_admin_add_new_product.xml" value="0.4625641025641026" />
         <entry key="app/src/main/res/layout/activity_category.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_customer_login.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_customer_page.xml" value="0.225" />
