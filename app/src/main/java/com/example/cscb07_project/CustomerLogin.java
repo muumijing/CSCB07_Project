@@ -58,17 +58,9 @@ public class CustomerLogin extends AppCompatActivity {
                         String customerId = ds.child("customerId").getValue(String.class);
                         String username = ds.child("username").getValue(String.class);
                         String locked = ds.child("locked").getValue(String.class);
-                        String login = ds.child("login").getValue(String.class);
+                        
                         if(locked.equals("true")){
-
-                            Toast.makeText(CustomerLogin.this, "Your account has been locked", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        else if(login.equals("true")){
-                            Intent intent = new Intent(CustomerLogin.this, CustomerPage.class);
-                            intent.putExtra("username", username);
-                            intent.putExtra("customerId", customerId);
-                            startActivity(intent);
+                            inputEmail.setError("Your account has been locked");
                             return;
                         }
                         else if(p.equals(password)){
@@ -103,11 +95,9 @@ public class CustomerLogin extends AppCompatActivity {
             }
         });
 
-        // System.out.println(found);
+       
 
-        if(!found){
-            System.out.println("Email not found");
-        }
+        
     }
 
     public void write(String username, String field, String data){
