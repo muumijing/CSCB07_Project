@@ -90,6 +90,7 @@ public class CustomerRegister extends AppCompatActivity {
         inputUsername = findViewById(R.id.username);
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
+        inputPhoneNum = findViewById(R.id.phoneNum);
 
         String username = inputUsername.getText().toString();
         String email = inputEmail.getText().toString();
@@ -97,6 +98,7 @@ public class CustomerRegister extends AppCompatActivity {
         boolean isValidUsername = !username.isEmpty();
         boolean isValidEmail = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();;
         boolean isValidPassword = false;
+        boolean isValidPhoneNum = false;
         boolean isValidInput = false;
 
         if(!isValidUsername){
@@ -113,6 +115,15 @@ public class CustomerRegister extends AppCompatActivity {
         else if(!isValidEmail){
             inputEmail.setError("Email is not valid");
             inputEmail.requestFocus();
+            return false;
+        }
+        
+        Pattern pattern = Pattern.compile("^\\d{10}$");
+        Matcher matcher = pattern.matcher(phoneNum);
+        isValidPhoneNum = matcher.matches();
+        if(!isValidPhoneNum){
+            inputPhoneNum.setError("Phone number is not valid");
+            inputPhoneNum.requestFocus();
             return false;
         }
 
@@ -144,9 +155,13 @@ public class CustomerRegister extends AppCompatActivity {
             inputPassword.requestFocus();
             return false;
         }
+        
 
         isValidPassword = !password.isEmpty() && ! (password.length() < 12) && containsDigit && containsLetter;
-        return isValidUsername && isValidEmail && isValidPassword;
+        
+        
+
+        return isValidUsername && isValidEmail && isValidPassword && isValidPhoneNum;
     }
 
 }
