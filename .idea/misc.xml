@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/drawable/search_background.xml" value="0.309375" />
         <entry key="app/src/main/res/layout/activity_admin_add_new_product.xml" value="0.4625641025641026" />
         <entry key="app/src/main/res/layout/activity_category.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_create_store.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/layout/activity_customer_login.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_customer_page.xml" value="0.225" />
         <entry key="app/src/main/res/layout/activity_customer_register.xml" value="0.225" />

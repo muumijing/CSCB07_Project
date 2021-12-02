@@ -62,6 +62,7 @@ public class OwnerLogin extends AppCompatActivity {
                             return;
                         }
                         else if(login.equals("true")){
+
                             Intent intent = new Intent(OwnerLogin.this, StoreOwnerPage.class);
                             intent.putExtra("message", username);
                             startActivity(intent);

@@ -28,6 +28,13 @@
             android:hint="@string/textOfEmail"
             android:ems="30"/>
 
+        <EditText
+            android:id = "@+id/phoneNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Please enter your phone number"
+            android:ems="30"/>
+
 
         <EditText
             android:id="@+id/password"

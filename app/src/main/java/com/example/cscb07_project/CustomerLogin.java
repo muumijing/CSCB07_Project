@@ -42,35 +42,40 @@ public class CustomerLogin extends AppCompatActivity {
         String password = inputPassword.getText().toString().trim();
 
         db = FirebaseDatabase.getInstance();
-        ref = db.getReference("Users");
+        ref = db.getReference("Customers");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren()){
                     String e = ds.child("email").getValue(String.class);
+                    System.out.println(e);
                     String p = ds.child("password").getValue(String.class);
                     if(e.equals(email)){
                         found = true;
                         // System.out.println("found email");
+                        String customerId = ds.child("customerId").getValue(String.class);
                         String username = ds.child("username").getValue(String.class);
-                        String login = ds.child("login").getValue(String.class);
                         String locked = ds.child("locked").getValue(String.class);
+                        String login = ds.child("login").getValue(String.class);
                         if(locked.equals("true")){
+
                             Toast.makeText(CustomerLogin.this, "Your account has been locked", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         else if(login.equals("true")){
                             Intent intent = new Intent(CustomerLogin.this, CustomerPage.class);
-                            intent.putExtra("message", username);
+                            intent.putExtra("username", username);
+                            intent.putExtra("customerId", customerId);
                             startActivity(intent);
                             return;
                         }
                         else if(p.equals(password)){
                             Toast.makeText(CustomerLogin.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                            write(username, "login", "true");
+                            ref.child(customerId).child("login").setValue("true");
                             Intent intent = new Intent(CustomerLogin.this, CustomerPage.class);
-                            intent.putExtra("message", username);
+                            intent.putExtra("username", username);
+                            intent.putExtra("customerId", customerId);
                             startActivity(intent);
                             return;
                         }
@@ -82,7 +87,7 @@ public class CustomerLogin extends AppCompatActivity {
                                 Toast.makeText(CustomerLogin.this, "Incorrect password. Please try again.", Toast.LENGTH_SHORT).show();
                             }
                             if(tolerance == 0){
-                                write(username, "locked", "true");
+                                ref.child(customerId).child("locked").setValue("true");
                                 Toast.makeText(CustomerLogin.this, "Your account will be locked", Toast.LENGTH_SHORT).show();
                                 return;
                             }
@@ -90,6 +95,7 @@ public class CustomerLogin extends AppCompatActivity {
 
                     }
                 }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -105,7 +111,7 @@ public class CustomerLogin extends AppCompatActivity {
 
     public void write(String username, String field, String data){
         db = FirebaseDatabase.getInstance();
-        ref = db.getReference("Users");
+        ref = db.getReference("Customers");
         ref.child(username).child(field).setValue(data);
     }
 

@@ -23,6 +23,7 @@ public class OwnerRegister extends AppCompatActivity {
     private EditText inputUsername;
     private EditText inputEmail;
     private EditText inputPassword;
+    private EditText inputPhoneNum;
     // private boolean registered = false;
 
     FirebaseDatabase db;
@@ -39,10 +40,13 @@ public class OwnerRegister extends AppCompatActivity {
         inputUsername = findViewById(R.id.username);
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
+        inputPhoneNum = findViewById(R.id.phoneNum);
 
         String username = inputUsername.getText().toString();
         String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
+        String phoneNum = inputPhoneNum.getText().toString();
+        String ownerId = "owner" + phoneNum;
 
         boolean isValidInput = validateInput();
 
@@ -56,20 +60,20 @@ public class OwnerRegister extends AppCompatActivity {
                 boolean registered = false;
                 for(DataSnapshot ds: snapshot.getChildren()){
                     String email1 = ds.child("email").getValue(String.class);
-                    String username1 = ds.child("username").getValue(String.class);
+                    String ownerId1 = ds.child("ownerId").getValue(String.class);
                     if(email.equals(email1)){
                         Toast.makeText(OwnerRegister.this, "Email has been registered", Toast.LENGTH_SHORT).show();
                         registered = true;
                     }
-                    else if(username.equals(username1)){
-                        Toast.makeText(OwnerRegister.this, "Username has been registered", Toast.LENGTH_SHORT).show();
+                    else if(ownerId.equals(ownerId1)){
+                        Toast.makeText(OwnerRegister.this, "Phone number has been registered", Toast.LENGTH_SHORT).show();
                         registered = true;
                     }
                 }
 
                 if(isValidInput && !registered){
-                    Owner owner = new Owner(username, email, password);
-                    ref.child(username).setValue(owner);
+                    Owner owner = new Owner(username, email, password, phoneNum);
+                    ref.child(ownerId).setValue(owner);
                     Toast.makeText(OwnerRegister.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(OwnerRegister.this, OwnerLogin.class));
                 }

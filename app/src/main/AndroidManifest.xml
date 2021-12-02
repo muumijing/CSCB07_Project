@@ -13,25 +13,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CSCB07_Project">
         <activity
+            android:name=".StoreOwnerPage"
+            android:exported="false" />
+        <activity
             android:name=".OwnerRegister"
             android:exported="false" />
         <activity
             android:name=".CustomerRegister"
             android:exported="false" />
         <activity
-            android:name=".StoreOwnerPage"
+            android:name=".OwnerLogin"
             android:exported="false" />
         <activity
             android:name=".CustomerPage"
             android:exported="false" />
         <activity
-            android:name=".OwnerLogin"
+            android:name=".updateProductActivity"
             android:exported="false" />
         <activity
             android:name=".CustomerLogin"
             android:exported="false" />
         <activity
-            android:name=".updateProductActivity"
+            android:name=".CreateStoreActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -33,6 +33,7 @@ public class StoreOwnerPage extends AppCompatActivity{
     private DatabaseReference ref;
     private Button button;
     private Store store;
+    private Model model;
 
     RecyclerView categoryRecyclerView;
 
@@ -60,16 +61,27 @@ public class StoreOwnerPage extends AppCompatActivity{
         categoryList.add(new Category(4,ic_home_veggies));
 
         setCategoryRecycler(categoryList);
-        //button = (Button) findViewById(R.id.AddItem);
-        //button.setOnClickListener(new View.OnClickListener(){
-
-            //@Override
-            //public void onClick(View v) {
-                //addItem();
-            //}
-        //});
 
 
+        model = Model.getInstance();
+        getStore();
+
+
+    }
+
+    private void getStore() {
+        model.getStoreByOwner(username, (Store store) -> {
+            if (store == null) {
+                Intent intent = new Intent(this, CreateStoreActivity.class);
+                intent.putExtra("message", username);
+                startActivity(intent);
+                return;
+            }
+            this.store = store;
+            //ItemListAdapter adapter = new ItemListAdapter(this, R.layout.item_list_item, store.inventory);
+            //lvItems.setAdapter(adapter);
+
+        });
     }
 
     private void setCategoryRecycler(List<Category> categoryDataList) {
@@ -111,6 +123,7 @@ public class StoreOwnerPage extends AppCompatActivity{
     public void addItem(View view) {
         Intent intent = new Intent(this, updateProductActivity.class);
         intent.putExtra("message", username);
+
         startActivity(intent);
     }
 

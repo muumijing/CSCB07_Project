@@ -1,12 +1,12 @@
 package com.example.cscb07_project;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class CustomerPage extends AppCompatActivity {
     private String username = "";
+    private String customerId = "";
     private FirebaseDatabase db;
     private DatabaseReference ref;
 
@@ -24,7 +25,8 @@ public class CustomerPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_page);
         Intent intent = getIntent();
-        username = intent.getStringExtra("message");
+        username = intent.getStringExtra("username");
+        customerId = intent.getStringExtra("customerId");
         TextView tv = (TextView)findViewById(R.id.welcome);
         tv.setText("Welcome" + username);
 
@@ -32,15 +34,15 @@ public class CustomerPage extends AppCompatActivity {
 
     public void customerLogout(View view){
         db = FirebaseDatabase.getInstance();
-        ref = db.getReference("Users");
+        ref = db.getReference("Customers");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren()){
-                    String name = ds.child("username").getValue(String.class);
-                    if(name.equals(username)){
-                        write(username, "login", "false");
-                        startActivity (new Intent(CustomerPage.this, MainActivity.class));
+                    String customerId1 = "customer" + ds.child("phoneNum").getValue(String.class);
+                    if(customerId1.equals(customerId)){
+                        ref.child(customerId).child("login").setValue("false");
+                        // write(username, "login", "false");
                     }
                 }
             }
@@ -50,12 +52,7 @@ public class CustomerPage extends AppCompatActivity {
 
             }
         });
+        startActivity (new Intent(CustomerPage.this, MainActivity.class));
 
-    }
-
-    public void write(String username, String field, String data){
-        db = FirebaseDatabase.getInstance();
-        ref = db.getReference("Users");
-        ref.child(username).child(field).setValue(data);
     }
 }

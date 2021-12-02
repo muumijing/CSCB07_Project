@@ -1,21 +1,14 @@
 package com.example.cscb07_project;
 
-public class Owner {
-
-    public String username;
-    public String email;
-    public String password;
-    public String login = "false";
-    public String locked = "false";
+public class Owner extends User{
     // public static int num = 0;
 
-
+    public String ownerId;
     public Owner(){};
-    public Owner(String username, String email, String password){
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        // num++;
+    public Owner(String username, String email, String password, String phoneNum){
+        super(username, email, password, phoneNum);
+        this.ownerId = "owner" + phoneNum;
+        // this.owner;
     }
 
 

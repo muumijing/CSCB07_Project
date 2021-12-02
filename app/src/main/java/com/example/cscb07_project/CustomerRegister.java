@@ -23,6 +23,7 @@ public class CustomerRegister extends AppCompatActivity {
     private EditText inputUsername;
     private EditText inputEmail;
     private EditText inputPassword;
+    private EditText inputPhoneNum;
 
 
     FirebaseDatabase db;
@@ -40,15 +41,18 @@ public class CustomerRegister extends AppCompatActivity {
         inputUsername = findViewById(R.id.username);
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
+        inputPhoneNum = findViewById(R.id.phoneNum);
 
         String username = inputUsername.getText().toString();
         String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
+        String phoneNum = inputPhoneNum.getText().toString();
+        String customerId = "customer" + phoneNum;
 
         boolean isValidInput = validateInput();
 
         db = FirebaseDatabase.getInstance();
-        ref = db.getReference("Users");
+        ref = db.getReference("Customers");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -56,19 +60,19 @@ public class CustomerRegister extends AppCompatActivity {
                 boolean registered = false;
                 for(DataSnapshot ds: snapshot.getChildren()){
                     String email1 = ds.child("email").getValue(String.class);
-                    String username1 = ds.child("username").getValue(String.class);
+                    String customerId1 = ds.child("customerId").getValue(String.class);
                     if(email.equals(email1)){
                         Toast.makeText(CustomerRegister.this, "Email has been registered", Toast.LENGTH_SHORT).show();
                         registered = true;
                     }
-                    else if(username.equals(username1)){
-                        Toast.makeText(CustomerRegister.this, "Username has been registered", Toast.LENGTH_SHORT).show();
+                    else if(customerId.equals(customerId1)){
+                        Toast.makeText(CustomerRegister.this, "Phone number has been registered", Toast.LENGTH_SHORT).show();
                         registered = true;
                     }
                 }
                 if(isValidInput && !registered){
-                    User user = new User(username, email, password);
-                    ref.child(username).setValue(user);
+                    Customer customer = new Customer(username, email, password, phoneNum);
+                    ref.child(customerId).setValue(customer);
                     Toast.makeText(CustomerRegister.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(CustomerRegister.this, CustomerLogin.class));
                 }
