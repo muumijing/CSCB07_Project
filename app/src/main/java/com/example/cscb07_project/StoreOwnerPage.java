@@ -29,6 +29,8 @@ import java.util.List;
 public class StoreOwnerPage extends AppCompatActivity{
 
     private String username = "";
+    private String ownerId = "";
+    private String storeName;
     private FirebaseDatabase db;
     private DatabaseReference ref;
     private Button button;
@@ -49,7 +51,10 @@ public class StoreOwnerPage extends AppCompatActivity{
         categoryRecyclerView = findViewById(R.id.categoryRecycler);
         Intent intent = getIntent();
 
-        username = intent.getStringExtra("message");
+        username = intent.getStringExtra("username");
+        ownerId = intent.getStringExtra("ownerId");
+        storeName = intent.getStringExtra("storeName");
+        System.out.println("storepage" + storeName);
         //TextView tv = (TextView)findViewById(R.id.welcome);
         //tv.setText("Welcome Owner" + username);
 
@@ -70,17 +75,18 @@ public class StoreOwnerPage extends AppCompatActivity{
     }
 
     private void getStore() {
-        model.getStoreByOwner(username, (Store store) -> {
+        model.getStoreByOwner(ownerId, (Store store) -> {
             if (store == null) {
                 Intent intent = new Intent(this, CreateStoreActivity.class);
-                intent.putExtra("message", username);
+                intent.putExtra("username", username);
+                intent.putExtra("ownerId", ownerId);
                 startActivity(intent);
                 return;
             }
             this.store = store;
             //ItemListAdapter adapter = new ItemListAdapter(this, R.layout.item_list_item, store.inventory);
             //lvItems.setAdapter(adapter);
-
+            storeName = this.store.storeName;
         });
     }
 
@@ -122,7 +128,9 @@ public class StoreOwnerPage extends AppCompatActivity{
     }
     public void addItem(View view) {
         Intent intent = new Intent(this, updateProductActivity.class);
-        intent.putExtra("message", username);
+        intent.putExtra("username", username);
+        intent.putExtra("ownerId", ownerId);
+        intent.putExtra("storeName", storeName);
 
         startActivity(intent);
     }

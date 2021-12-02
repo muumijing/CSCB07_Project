@@ -50,11 +50,14 @@ public class OwnerLogin extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren()){
                     String e = ds.child("email").getValue(String.class);
+                    System.out.println(e);
                     String p = ds.child("password").getValue(String.class);
                     if(e.equals(email)){
                         found = true;
                         // System.out.println("found email");
+                        String phoneNum = ds.child("phoneNum").getValue(String.class);
                         String username = ds.child("username").getValue(String.class);
+                        String ownerId = "owner" + phoneNum;
                         String login = ds.child("login").getValue(String.class);
                         String locked = ds.child("locked").getValue(String.class);
                         if(locked.equals("true")){
@@ -62,17 +65,18 @@ public class OwnerLogin extends AppCompatActivity {
                             return;
                         }
                         else if(login.equals("true")){
-
                             Intent intent = new Intent(OwnerLogin.this, StoreOwnerPage.class);
-                            intent.putExtra("message", username);
+                            intent.putExtra("username", username);
+                            intent.putExtra("ownerId", ownerId);
                             startActivity(intent);
                             return;
                         }
                         else if(p.equals(password)){
                             Toast.makeText(OwnerLogin.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                            write(username, "login", "true");
+                            write(ownerId, "login", "true");
                             Intent intent = new Intent(OwnerLogin.this, StoreOwnerPage.class);
-                            intent.putExtra("message", username);
+                            intent.putExtra("username", username);
+                            intent.putExtra("ownerId", ownerId);
                             startActivity(intent);
                             return;
                         }
@@ -105,9 +109,9 @@ public class OwnerLogin extends AppCompatActivity {
         }
     }
 
-    public void write(String username, String field, String data){
+    public void write(String userId, String field, String data){
         db = FirebaseDatabase.getInstance();
         ref = db.getReference("Owners");
-        ref.child(username).child(field).setValue(data);
+        ref.child(userId).child(field).setValue(data);
     }
 }

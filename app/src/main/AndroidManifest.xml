@@ -22,10 +22,10 @@
             android:name=".OwnerRegister"
             android:exported="false" />
         <activity
-            android:name=".CustomerRegister"
+            android:name=".OwnerLogin"
             android:exported="false" />
         <activity
-            android:name=".OwnerLogin"
+            android:name=".CustomerRegister"
             android:exported="false" />
         <activity
             android:name=".CustomerPage"

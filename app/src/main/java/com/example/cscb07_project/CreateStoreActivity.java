@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class CreateStoreActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private String ownerId;
     private String username;
 
     private EditText edTxtStoreName;
@@ -31,7 +32,8 @@ public class CreateStoreActivity extends AppCompatActivity implements View.OnCli
         createStore = (Button) findViewById(R.id.CreateStore);
         createStore.setOnClickListener(this);
 
-        username = getIntent().getStringExtra("message");
+        ownerId = getIntent().getStringExtra("ownerId");
+        username = getIntent().getStringExtra("username");
         model = Model.getInstance();
         storesRef = FirebaseDatabase.getInstance().getReference("Stores");
     }
@@ -39,17 +41,20 @@ public class CreateStoreActivity extends AppCompatActivity implements View.OnCli
     private void createStore() {
         String storeName = edTxtStoreName.getText().toString().trim().toLowerCase();
         Store store = new Store(storeName);
-        store.owner = username;
+        store.owner = ownerId;
 
         model.postStore(store, (Boolean created) -> {
             if (!created) {
                 Toast.makeText(CreateStoreActivity.this, "Failed to create a store!", Toast.LENGTH_LONG).show();
                 return;
             }
-            //storesRef.child(store.owner).setValue(username);
+            //storesRef.child("ownerId").setValue(ownerId);
+            //storesRef.child("owner").setValue(username);
             Toast.makeText(CreateStoreActivity.this, "Store Created.", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, StoreOwnerPage.class);
-            intent.putExtra("message", username);
+            intent.putExtra("username", username);
+            intent.putExtra("ownerId", ownerId);
+
             startActivity(intent);
         });
 

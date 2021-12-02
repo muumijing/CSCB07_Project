@@ -9,9 +9,19 @@ public class Store {
     public List<String> orders;
 
     public String owner;
+    public String ownerId;
+
     public Store(String storeName){
         this.storeName = storeName;
         products_inventory = new ArrayList<Product>();
         orders = new ArrayList<String>();
+    }
+
+    public Store() {
+        products_inventory = new ArrayList<Product>();
+
+    }
+    public String toString() {
+        return storeName;
     }
 }

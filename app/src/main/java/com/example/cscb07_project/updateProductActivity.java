@@ -7,21 +7,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class updateProductActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText addProductName, addPrice, addQuantity;
     private Button save;
 
-    private int i;
+
     private Store store;
     private String username;
+    private String storeName;
+    private String ownerId;
 
-    private FirebaseDatabase db;
-    private DatabaseReference ref;
+
     private Model model;
     private DatabaseReference storesRef;
 
@@ -31,9 +36,10 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_update_products);
         model = Model.getInstance();
 
+        save = (Button) findViewById(R.id.save);
+        save.setOnClickListener(this);
+        //getStore();
 
-        getStore();
-        storesRef = FirebaseDatabase.getInstance().getReference("Stores");
 
     }
 
@@ -46,86 +52,74 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
 
         });
     }
-    public void updateItem(){
-        Intent intent = getIntent();
-        username = intent.getStringExtra("message");
+    public void updateItem() {
 
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
+        ownerId = intent.getStringExtra("ownerId");
+        storeName = intent.getStringExtra("storeName");
+        System.out.println(storeName);
         addProductName = (EditText) findViewById(R.id.addProductName);
         addPrice = (EditText) findViewById(R.id.addPrice);
         addQuantity = (EditText) findViewById(R.id.addQuantity);
+        storesRef = FirebaseDatabase.getInstance().getReference("Stores");
 
 
+        storesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-        save = (Button) findViewById(R.id.save);
-        save.setOnClickListener((View.OnClickListener) this);
-
-        //ref.addValueEventListener(new ValueEventListener() {
-            //@Override
-            //public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                //for (DataSnapshot ds : snapshot.getChildren()) {
-                    //String owner = ds.child("owner").getValue(String.class);
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    String ownerID = ds.child("owner").getValue(String.class);
+                    System.out.println(ownerID);
+                    System.out.println(ownerId);
                     //String username1 = ds.child("username").getValue(String.class);
                     Product product = new Product(
                             addProductName.getText().toString().trim(),
                             Double.parseDouble(addPrice.getText().toString()),
                             Integer.parseInt(addQuantity.getText().toString())
                     );
-                    // update the inventory of a product
-                    //if (i != -1) {
-                        //store.products_inventory.set(i, product);
-                     //}
-                    // add new product to the store inventory
-                    //else {
-                        store.products_inventory.add(product);
-                    //}
-                    //storesRef.child(String.valueOf(store.products_inventory)).child("name").setValue(addProductName.getText().toString().trim());
-
-                    // update fire base
-                    model.postStore(store, (Boolean posted) -> {
-                        if (!posted) {
-                            Toast.makeText(updateProductActivity.this, "Products can not be saved", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
+                    if (ownerID.equals(ownerId)) {
+                        storesRef.child(storeName).child("products").child("name").setValue(addProductName.getText().toString().trim());
+                        storesRef.child(storeName).child("products").child("price").setValue(addPrice.getText().toString());
+                        storesRef.child(storeName).child("products").child("quantity").setValue(addQuantity.getText().toString());
                         Toast.makeText(updateProductActivity.this, "product has been saved", Toast.LENGTH_SHORT).show();
-                        Intent intent2 = new Intent(updateProductActivity.this, StoreOwnerPage.class);
-                        intent2.putExtra("message", store.owner);
-                        startActivity(intent2);
-
-                    });
+                        startActivity(new Intent(updateProductActivity.this, StoreOwnerPage.class));
+                    }
+                }
 
 
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-
-
-            //@Override
-            //public void onCancelled(@NonNull DatabaseError error) {
-           // }
-        //});
-    }
-
-    private void fillEdTxt() {
-        //
-        if (i != -1) {
-            Product product = store.products_inventory.get(i);
-            addProductName.setText(product.name);
-            addPrice.setText(((Double) product.price).toString());
-            addQuantity.setText(((Integer) product.inventory_quantity).toString());
-        }
+            }
+        });
 
     }
-
-
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.save:
-                updateItem();
-                break;
+    public void onClick(View v) {
+        if (v.getId() == R.id.save) {
+            updateItem();
         }
     }
+
+
+//    private void fillEdTxt() {
+        //
+//        if (i != -1) {
+//            Product product = store.products_inventory.get(i);
+//            addProductName.setText(product.name);
+//            addPrice.setText(((Double) product.price).toString());
+//            addQuantity.setText(((Integer) product.inventory_quantity).toString());
+ //       }
+
+ //   }
+
+
+
+
 
 }
