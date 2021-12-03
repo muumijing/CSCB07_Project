@@ -12,35 +12,46 @@ import java.util.List;
 public class ItemAdapter extends ArrayAdapter<Product> {
 
     private int resource;
+    private Context context;
 
     private static class ViewHolder {
-        TextView productName;
-        TextView productQuantity;
+        TextView tvProductName;
+        TextView tvProductQuantity;
+        TextView tvProductPrice;
     }
 
     public ItemAdapter(Context context, int resource, List<Product> products) {
-        super(context, resource);
+        super(context, resource, products);
+        this.context = context;
         this.resource = resource;
     }
 
     @Override
     public View getView (int position, View convertView, ViewGroup parent){
-        Product item = getItem(position);
+        Product product = getItem(position);
+
+        String productName = product.name;
+        String productQuantity = ((Integer) product.inventory_quantity).toString();
+        String productPrice = ((Double) product.price).toString();
+
+
         ViewHolder viewHolder;
 
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(resource, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.productName = (TextView) convertView.findViewById(R.id.textViewItemName);
-            viewHolder.productQuantity = (TextView) convertView.findViewById(R.id.textViewQuantity);
+            viewHolder.tvProductName = (TextView) convertView.findViewById(R.id.textViewItemName);
+            viewHolder.tvProductQuantity = (TextView) convertView.findViewById(R.id.textViewQuantity);
+            viewHolder.tvProductPrice = (TextView) convertView.findViewById(R.id.textViewPrice);
 
             convertView.setTag(convertView);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.productName.setText(item.name);
-        viewHolder.productQuantity.setText(item.inventory_quantity);
+        viewHolder.tvProductName.setText(productName);
+        viewHolder.tvProductQuantity.setText(productQuantity);
+        viewHolder.tvProductPrice.setText(productPrice);
 
         return convertView;
     }

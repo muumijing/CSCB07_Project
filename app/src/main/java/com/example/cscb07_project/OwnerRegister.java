@@ -123,6 +123,7 @@ public class OwnerRegister extends AppCompatActivity {
         boolean containsDigit = n.matches();
         
         Pattern pattern = Pattern.compile("^\\d{10}$");
+        String phoneNum = inputPhoneNum.getText().toString();
         Matcher matcher = pattern.matcher(phoneNum);
         isValidPhoneNum = matcher.matches();
         if(!isValidPhoneNum){

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -43,6 +44,9 @@ public class PopupActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.confirm_order_popup);
+
+//        Intent intent = getIntent();
+//        allProducts = intent.getParcelableExtra("order");
 
 //        fbUser = FirebaseAuth.getInstance().getCurrentUser();
 //        userRef = FirebaseDatabase.getInstance().getReference();
@@ -89,7 +93,9 @@ public class PopupActivity extends AppCompatActivity{
     }
 
     public void cancel (){
-        Toast.makeText(this,"Cancel", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(PopupActivity.this, ShoppingCar.class);
+        Toast.makeText(this,"Order Canceled", Toast.LENGTH_SHORT).show();
+        startActivity(intent);
 
     }
 

@@ -3,6 +3,7 @@ package com.example.cscb07_project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,11 +25,16 @@ public class OwnerLogin extends AppCompatActivity {
     private int tolerance = 3;
     private boolean found = false;
 
+    private Button loginbtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_login);
+
+        loginbtn = (Button) findViewById(R.id.ownerLogin);
+        loginbtn.setOnClickListener(this::ownerLogin);
     }
 
     public void onOwnerRegister(View view){

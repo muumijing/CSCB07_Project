@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class CustomerPage extends AppCompatActivity {
     private String username = "";
     private String customerId = "";
@@ -23,6 +27,8 @@ public class CustomerPage extends AppCompatActivity {
     private DatabaseReference ref;
     private Button ShoppingCarBtn;
     private Button LogoutBtn;
+
+    public ArrayList<Product> orderProductList = new ArrayList<Product>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +49,13 @@ public class CustomerPage extends AppCompatActivity {
     }
 
     public void viewShoppingCar (View view){
+
+//        orderProductList.add(new Product("Apple", 2.3, 3));
+//        orderProductList.add(new Product("Pear", 1.8, 1));
+//        orderProductList.add(new Product("Banana", 3.0, 4));
+
         Intent intent = new Intent(CustomerPage.this, ShoppingCar.class);
-        intent.putExtra("items", "hello");
+//        intent.putExtra("items", orderProductList);
         startActivity(intent);
     }
 
