@@ -27,7 +27,18 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public ProductListAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // to inflate the layout for each item of recycler view.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_product_detail, parent, false);
-        return new ProductListAdapter.Viewholder(view);
+        return new Viewholder(view);
+    }
+    public static class Viewholder extends RecyclerView.ViewHolder {
+
+        public TextView productNameTV, productPriceTV,productQuantityTV;
+
+        public Viewholder(@NonNull View itemView) {
+            super(itemView);
+            productNameTV = itemView.findViewById(R.id.productNameTV);
+            productPriceTV = itemView.findViewById(R.id.productPriceTV);
+            productQuantityTV = itemView.findViewById(R.id.productQuantityTV);
+        }
     }
 
     @Override
@@ -44,17 +55,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         return ModelArrayList.size();
     }
 
-    public class Viewholder extends RecyclerView.ViewHolder {
 
-        public TextView productNameTV, productPriceTV,productQuantityTV;
-
-        public Viewholder(@NonNull View itemView) {
-            super(itemView);
-            productNameTV = itemView.findViewById(R.id.productName);
-            productPriceTV = itemView.findViewById(R.id.productPrice);
-            productQuantityTV = itemView.findViewById(R.id.productQuantity);
-        }
-    }
 
 
 }

@@ -3,7 +3,6 @@ package com.example.cscb07_project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cscb07_project.adapter.ProductListAdapter;
 import com.example.cscb07_project.model.productDetail;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -75,8 +75,8 @@ public class ProductListActivity extends AppCompatActivity {
                                     String name = ds1.child("name").getValue(String.class);
                                     Integer quantity = ds1.child("inventory_quantity").getValue(Integer.class);
                                     Double price = ds1.child("price").getValue(Double.class);
-
                                     ModelArrayList.add(new productDetail(name,price,quantity));
+
                                 }
                             }
 
@@ -97,7 +97,7 @@ public class ProductListActivity extends AppCompatActivity {
             }
         });
         // we are initializing our adapter class and passing our arraylist to it.
-        OrderAdapter orderAdapter = new OrderAdapter(this, ModelArrayList);
+        ProductListAdapter productListAdapter = new ProductListAdapter(this, ModelArrayList);
 
         // below line is for setting a layout manager for our recycler view.
         // here we are creating vertical list so we will provide orientation as vertical
@@ -105,7 +105,9 @@ public class ProductListActivity extends AppCompatActivity {
 
         // in below two lines we are setting layout manager and adapter to our recycler view.
         RV.setLayoutManager(linearLayoutManager);
-        RV.setAdapter(orderAdapter);
+        RV.setAdapter(productListAdapter);
+
+
         getStore();
 
     }
@@ -121,71 +123,7 @@ public class ProductListActivity extends AppCompatActivity {
         });
     }
 
-    public void show_products(View view){
 
-        //for every product in the shop, get the string of the item
-        //,the quantity and the price
-
-
-
-        ArrayList<String> arrayList_items = new ArrayList<>();
-        ArrayList<Integer> arrayList_amount = new ArrayList<>();
-        ArrayList<Double> arrayList_price = new ArrayList<>();
-
-        //ownerId = getIntent().getStringExtra("ownerId");
-        //storeName = getIntent().getStringExtra("storeName");
-
-        storesRef = FirebaseDatabase.getInstance().getReference("Stores");
-        storesRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds: snapshot.getChildren()){
-                    String ownerID = ds.child("owner").getValue(String.class);
-                    if (ownerID.equals(ownerId)) {
-
-                        productsRef = storesRef.child(storeName).child("products");
-                        productsRef.addValueEventListener(new ValueEventListener(){
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                for(DataSnapshot ds1: snapshot.getChildren()){
-                                    String name = ds1.child("name").getValue(String.class);
-                                    Integer amount = ds1.child("inventory_quantity").getValue(Integer.class);
-                                    Double price = ds1.child("price").getValue(Double.class);
-
-                                    arrayList_items.add(name);
-                                    arrayList_amount.add(amount);
-                                    arrayList_price.add(price);
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                            }
-
-
-                        });
-
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
-        ArrayAdapter arrayAdapter_items = new ArrayAdapter(this, android.R.layout.simple_list_item_1,arrayList_items);
-        ArrayAdapter arrayAdapter_amount = new ArrayAdapter(this, android.R.layout.simple_list_item_2,arrayList_amount);
-        //ArrayAdapter arrayAdapter_price = new ArrayAdapter(this, android.R.layout.simple_list_item_3,arrayList_price);
-
-
-        lv_products.setAdapter(arrayAdapter_items);
-        lv_quantity.setAdapter(arrayAdapter_amount);
-        //listView_price.setAdapter(arrayAdapter_price);
-
-
-    }
 
     public void back(View view){
         Intent intent = new Intent(ProductListActivity.this, StoreOwnerPage.class);

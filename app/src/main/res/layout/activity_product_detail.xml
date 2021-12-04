@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
 
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_weight="33.3"
-        android:text=""
-        android:gravity="center"
-        android:id="@+id/productName"/>
+        android:id="@+id/productNameTV"
+        android:layout_width="125dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
 
+        android:layout_marginTop="200dp"
+        android:layout_weight="33.3"
+        android:text="Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_weight="33.3"
-        android:text=""
-        android:gravity="center"
-        android:id="@+id/productPrice"/>
-
+        android:id="@+id/productPriceTV"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="200dp"
+        android:text="Price"
+        app:layout_constraintEnd_toStartOf="@+id/productQuantityTV"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/productNameTV"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_weight="33.3"
-        android:text=""
-        android:gravity="center"
-        android:id="@+id/productQuantity"/>
+        android:id="@+id/productQuantityTV"
+        android:layout_width="125dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="16dp"
+        android:text="Quantity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
