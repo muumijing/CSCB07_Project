@@ -54,19 +54,18 @@ public class Order extends AppCompatActivity {
         ArrayList<String> arrayList_items = new ArrayList<>();
         ArrayList<Integer> arrayList_amount = new ArrayList<>();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("stores");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Order");
 
         Intent intent = getIntent();
-        String storeName = intent.getStringExtra("storeName");
-        String orderid = intent.getStringExtra("Orderid");
+        String orderId = intent.getStringExtra("orderId");
 
-        DatabaseReference details = reference.child(storeName).child("orders").child(orderid).child("details");
+        DatabaseReference productList = reference.child(orderId).child("productList");
 
-        details.addValueEventListener(new ValueEventListener() {
+        productList.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren()){
-                    String Name = ds.child("Name").getValue(String.class);
+                    String Name = ds.child("name").getValue(String.class);
                     Integer Amount = ds.child("Amount").getValue(Integer.class);
 
                     arrayList_items.add(Name);
@@ -86,15 +85,14 @@ public class Order extends AppCompatActivity {
         listView_amount.setAdapter(arrayAdapter_amount);
 
         TextView order_id = view.findViewById(R.id.orderid);
-        order_id.setText("Order id is " + orderid);
+        order_id.setText("Order id is " + orderId);
     }
 
 
 
     public void Completed(View view){
         Intent intent = getIntent();
-        String storeName = intent.getStringExtra("storeName");
-        String orderid = intent.getStringExtra("Orderid");
+        String orderId = intent.getStringExtra("orderId");
         Button button_completed = view.findViewById(R.id.Completed);
         String status = "Completed";
         button_completed.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +101,7 @@ public class Order extends AppCompatActivity {
                 Map<String, Object> map = new HashMap<>();
                 map.put("status", status);
 
-                FirebaseDatabase.getInstance().getReference("stores").child(storeName).child("orders").child(orderid)
+                FirebaseDatabase.getInstance().getReference("Order").child(orderId)
                         .updateChildren(map);
             }
         });
@@ -111,8 +109,7 @@ public class Order extends AppCompatActivity {
 
     public void Uncompleted(View view){
         Intent intent = getIntent();
-        String storeName = intent.getStringExtra("storeName");
-        String orderid = intent.getStringExtra("Orderid");
+        String orderId = intent.getStringExtra("orderId");
         Button button_uncompleted = view.findViewById(R.id.Uncompleted);
         String status = "Uncompleted";
         button_uncompleted.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +118,7 @@ public class Order extends AppCompatActivity {
                 Map<String, Object> map = new HashMap<>();
                 map.put("status", status);
 
-                FirebaseDatabase.getInstance().getReference("stores").child(storeName).child("orders").child(orderid)
+                FirebaseDatabase.getInstance().getReference("Order").child(orderId)
                         .updateChildren(map);
             }
         });
