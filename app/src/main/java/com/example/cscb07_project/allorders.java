@@ -1,6 +1,8 @@
 package com.example.cscb07_project;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,20 +28,27 @@ public class allorders extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview);
+    }
+
+    public void showallorders(View view){
         RV = findViewById(R.id.rv);
+
+        Intent intent = getIntent();
+        String storeName = intent.getStringExtra("storeName");
 
         // here we have created new array list and added data to it.
         ModelArrayList = new ArrayList<>();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("userID");
-        DatabaseReference orders = reference.child("stores").child("orders");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("stores");
+        DatabaseReference orders = reference.child(storeName).child("orders");
 
         orders.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren()){
-                    String Status = ds.child("storeid").child("status").child("status").getValue(String.class);
-                    ModelArrayList.add(new cardmodel("storeid", Status));
+                    String Status = ds.child("status").getValue(String.class);
+                    String orderid = ds.toString();
+                    ModelArrayList.add(new cardmodel(orderid, Status));
                 }
             }
 
@@ -61,3 +70,4 @@ public class allorders extends AppCompatActivity {
         RV.setAdapter(orderAdapter);
     }
 }
+
