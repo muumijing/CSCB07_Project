@@ -143,4 +143,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categoryRecycler"
         app:rippleColor="@color/teal_700" />
+    
+    <Button
+        android:id="@+id/orders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="32dp"
+        android:onClick="Toshowallorders"
+        android:text="Show Orders"
+        app:layout_constraintBottom_toTopOf="@+id/ownerLogout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AddItem" />
 </androidx.constraintlayout.widget.ConstraintLayout>
