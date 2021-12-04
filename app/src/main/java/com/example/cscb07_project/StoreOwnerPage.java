@@ -126,7 +126,9 @@ public class StoreOwnerPage extends AppCompatActivity{
         startActivity(intent);
     }
 
-
+    public void Toshowallorders(View view) {
+        startActivity(new Intent(this, allorders.class));
+    }
 
 }
 
