@@ -9,19 +9,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cscb07_project.adapter.CategoryAdapter;
 import com.example.cscb07_project.model.Category;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +35,7 @@ public class StoreOwnerPage extends AppCompatActivity{
     private Model model;
 
     RecyclerView categoryRecyclerView;
-
+    private ListView products;
     CategoryAdapter categoryAdapter;
     List<Category> categoryList;
 
@@ -54,7 +51,6 @@ public class StoreOwnerPage extends AppCompatActivity{
         username = intent.getStringExtra("username");
         ownerId = intent.getStringExtra("ownerId");
         storeName = intent.getStringExtra("storeName");
-        System.out.println("storepage" + storeName);
         //TextView tv = (TextView)findViewById(R.id.welcome);
         //tv.setText("Welcome Owner" + username);
 
@@ -70,7 +66,16 @@ public class StoreOwnerPage extends AppCompatActivity{
 
         model = Model.getInstance();
         getStore();
-
+        //products = (ListView) findViewById(R.id.products);
+        //products.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //    @Override
+        //      public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        //        Intent intent = new Intent(StoreOwnerPage.this, ProductListActivity.class);
+        //        intent.putExtra("ownerId", ownerId);
+        //        intent.putExtra("i", i);
+        //        startActivity(intent);
+        //    }
+        //});
 
     }
 
@@ -84,8 +89,8 @@ public class StoreOwnerPage extends AppCompatActivity{
                 return;
             }
             this.store = store;
-            //ItemListAdapter adapter = new ItemListAdapter(this, R.layout.item_list_item, store.inventory);
-            //lvItems.setAdapter(adapter);
+            //ProductListAdapter adapter = new ProductListAdapter(this, R.layout.activity_products_list, store.products_inventory);
+            //products.setAdapter(adapter);
             storeName = this.store.storeName;
         });
     }
@@ -102,13 +107,18 @@ public class StoreOwnerPage extends AppCompatActivity{
     }
 
 
-    public void write(String username, String field, String data){
-        db = FirebaseDatabase.getInstance();
-        ref = db.getReference("Stores");
-        ref.child(username).child(field).setValue(data);
-    }
+
     public void addItem(View view) {
         Intent intent = new Intent(this, updateProductActivity.class);
+        intent.putExtra("username", username);
+        intent.putExtra("ownerId", ownerId);
+        intent.putExtra("storeName", storeName);
+
+        startActivity(intent);
+    }
+
+    public void seeAll(View view) {
+        Intent intent = new Intent(this, ProductListActivity.class);
         intent.putExtra("username", username);
         intent.putExtra("ownerId", ownerId);
         intent.putExtra("storeName", storeName);

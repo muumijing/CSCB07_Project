@@ -37,34 +37,36 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
         model = Model.getInstance();
         Intent intent = getIntent();
         ownerId = intent.getStringExtra("ownerId");
+
         save = (Button) findViewById(R.id.save);
         save.setOnClickListener(this);
         getStore();
 
 
     }
-
+    //get the store by ownerId
     private void getStore() {
         model.getStoreByOwner(ownerId, (Store store) -> {
 
             this.store = store;
-            //ItemListAdapter adapter = new ItemListAdapter(this, R.layout.item_list_item, store.inventory);
-            //lvItems.setAdapter(adapter);
 
         });
     }
+
     public void updateItem() {
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
         ownerId = intent.getStringExtra("ownerId");
         storeName = intent.getStringExtra("storeName");
-        System.out.println(storeName);
+
         addProductName = (EditText) findViewById(R.id.addProductName);
         addPrice = (EditText) findViewById(R.id.addPrice);
         addQuantity = (EditText) findViewById(R.id.addQuantity);
+
         storesRef = FirebaseDatabase.getInstance().getReference("Stores");
 
+        //create a new product
         Product product = new Product(
                 addProductName.getText().toString().trim(),
                 Double.parseDouble(addPrice.getText().toString()),
@@ -74,6 +76,7 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
         Double productPrice = Double.parseDouble(addPrice.getText().toString());
         int productQuantity = Integer.parseInt(addQuantity.getText().toString());
 
+        //update the product to firebase
         storesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -104,7 +107,7 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
             }
         });
 
-
+        //update the product to the products_inventory field of the store
         if(!store.products_inventory.contains(productName)){
             store.products_inventory.add(product);
         }
@@ -127,16 +130,7 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
     }
 
 
-//    private void fillEdTxt() {
-        //
-//        if (i != -1) {
-//            Product product = store.products_inventory.get(i);
-//            addProductName.setText(product.name);
-//            addPrice.setText(((Double) product.price).toString());
-//            addQuantity.setText(((Integer) product.inventory_quantity).toString());
- //       }
 
- //   }
 
 
 

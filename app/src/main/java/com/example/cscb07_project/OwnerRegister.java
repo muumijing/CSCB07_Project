@@ -94,6 +94,7 @@ public class OwnerRegister extends AppCompatActivity {
         String username = inputUsername.getText().toString();
         String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
+        String phoneNum = inputPhoneNum.getText().toString();
         boolean isValidUsername = !username.isEmpty();
         boolean isValidEmail = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();;
         boolean isValidPassword = false;
@@ -123,7 +124,7 @@ public class OwnerRegister extends AppCompatActivity {
         boolean containsDigit = n.matches();
         
         Pattern pattern = Pattern.compile("^\\d{10}$");
-        String phoneNum = inputPhoneNum.getText().toString();
+
         Matcher matcher = pattern.matcher(phoneNum);
         isValidPhoneNum = matcher.matches();
         if(!isValidPhoneNum){
