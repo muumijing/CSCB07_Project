@@ -44,10 +44,10 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/products"
-        android:layout_width="409dp"
-        android:layout_height="480dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productRv"
+        android:layout_width="411dp"
+        android:layout_height="550dp"
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,12 +62,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="200dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="56dp"
-        android:text="back"
         android:onClick="back"
+        android:text="back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.682"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/products" />
+        app:layout_constraintTop_toBottomOf="@+id/productList"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
