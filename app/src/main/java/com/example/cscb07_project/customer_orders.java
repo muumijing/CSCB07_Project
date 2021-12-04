@@ -1,5 +1,6 @@
 package com.example.cscb07_project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
@@ -36,21 +37,22 @@ public class customer_orders extends AppCompatActivity {
         ArrayList<String> arrayList_orderid = new ArrayList<>();
         ArrayList<String> arrayList_status = new ArrayList<>();
 
-        String customerid = getIntent().getStringExtra("userID");
+        Intent intent = getIntent();
+        String customerid = intent.getStringExtra("customerId");
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("owners");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("stores");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot storeids: snapshot.getChildren()){
-                    DatabaseReference orders = reference.child("stores").child("orders");
+                for (DataSnapshot storenames: snapshot.getChildren()){
+                    DatabaseReference orders = reference.child(storenames.toString()).child("orders");
                     orders.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for (DataSnapshot orderids: snapshot.getChildren()){
-                                if(orderids.child("customerid").equals(customerid)){
-                                    arrayList_orderid.add(storeids.toString());
+                                if(orderids.child("customerid").getValue(String.class).equals(customerid)){
+                                    arrayList_orderid.add(orderids.toString());
                                     arrayList_status.add(orderids.child("status").getValue(String.class));
                                 }
                             }
