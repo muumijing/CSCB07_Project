@@ -28,9 +28,7 @@ public class allorders extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview);
-    }
 
-    public void showallorders(View view){
         RV = findViewById(R.id.rv);
 
         Intent intent = getIntent();
@@ -39,21 +37,23 @@ public class allorders extends AppCompatActivity {
         // here we have created new array list and added data to it.
         ModelArrayList = new ArrayList<>();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("stores");
-        DatabaseReference orders = reference.child(storeName).child("orders");
-
-        orders.addValueEventListener(new ValueEventListener() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Order");
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds: snapshot.getChildren()){
-                    String Status = ds.child("status").getValue(String.class);
-                    String orderid = ds.toString();
-                    ModelArrayList.add(new cardmodel(orderid, Status));
+                for (DataSnapshot order_ids: snapshot.getChildren()){
+                    String store_name = order_ids.child("storeName").getValue(String.class);
+                    if (store_name.equals(storeName)){
+                        String Status = order_ids.child("status").getValue(String.class);
+                        String orderId = order_ids.toString();
+                        ModelArrayList.add(new cardmodel(orderId, Status));
+                    }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
