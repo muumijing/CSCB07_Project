@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class customer_orders extends AppCompatActivity {
 
-    ListView listView_orderid;
+    ListView listView_orderId;
     ListView listView_status;
 
     @Override
@@ -31,37 +31,27 @@ public class customer_orders extends AppCompatActivity {
     }
 
     public void show_cus_order (View view){
-        listView_orderid = (ListView)findViewById(R.id.orderid);
+        listView_orderId = (ListView)findViewById(R.id.orderid);
         listView_status = (ListView) findViewById(R.id.status);
 
-        ArrayList<String> arrayList_orderid = new ArrayList<>();
+        ArrayList<String> arrayList_orderId = new ArrayList<>();
         ArrayList<String> arrayList_status = new ArrayList<>();
 
         Intent intent = getIntent();
-        String customerid = intent.getStringExtra("customerId");
+        String customerId = intent.getStringExtra("customerId");
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("stores");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Order");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot storenames: snapshot.getChildren()){
-                    DatabaseReference orders = reference.child(storenames.toString()).child("orders");
-                    orders.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot orderids: snapshot.getChildren()){
-                                if(orderids.child("customerid").getValue(String.class).equals(customerid)){
-                                    arrayList_orderid.add(orderids.toString());
-                                    arrayList_status.add(orderids.child("status").getValue(String.class));
-                                }
-                            }
-                        }
+                for (DataSnapshot order_ids: snapshot.getChildren()){
+                    String customer_id = order_ids.child("customerName").getValue(String.class);
+                    if (customer_id.equals(customerId)){
+                        arrayList_orderId.add(order_ids.toString());
+                        arrayList_status.add(order_ids.child("status").getValue(String.class));
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                        }
-                    });
                 }
             }
 
@@ -70,10 +60,10 @@ public class customer_orders extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter arrayAdapter_orderid = new ArrayAdapter(this, android.R.layout.simple_list_item_1,arrayList_orderid);
-        ArrayAdapter arrayAdapter_status = new ArrayAdapter(this, android.R.layout.simple_list_item_2,arrayList_orderid);
+        ArrayAdapter arrayAdapter_orderId = new ArrayAdapter(this, android.R.layout.simple_list_item_1,arrayList_orderId);
+        ArrayAdapter arrayAdapter_status = new ArrayAdapter(this, android.R.layout.simple_list_item_2,arrayList_status);
 
-        listView_orderid.setAdapter(arrayAdapter_orderid);
+        listView_orderId.setAdapter(arrayAdapter_orderId);
         listView_status.setAdapter(arrayAdapter_status);
         
     }
