@@ -66,7 +66,7 @@ public class Order extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren()){
                     String Name = ds.child("name").getValue(String.class);
-                    Integer Amount = ds.child("Amount").getValue(Integer.class);
+                    Integer Amount = ds.child("quantity").getValue(Integer.class);
 
                     arrayList_items.add(Name);
                     arrayList_amount.add(Amount);
