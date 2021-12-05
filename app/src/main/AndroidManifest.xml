@@ -13,10 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CSCB07_Project">
         <activity
-            android:name=".StoreOwnerPage"
+            android:name=".DisplayPendingOrderActivity"
             android:exported="false" />
         <activity
-            android:name=".PlaceOrderActivity"
+            android:name=".DisplayCompleteOrderStatusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StoreOwnerPage"
             android:exported="false" />
         <activity
             android:name=".OwnerRegister"

@@ -41,8 +41,6 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
         save = (Button) findViewById(R.id.save);
         save.setOnClickListener(this);
         getStore();
-
-
     }
     //get the store by ownerId
     private void getStore() {

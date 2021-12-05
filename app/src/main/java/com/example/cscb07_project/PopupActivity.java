@@ -16,69 +16,73 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
 
-public class PopupActivity extends AppCompatActivity{
+public class PopupActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button orderPopup;
     private Button cancelBtn;
     private Button confirmBtn;
 
+    private OrderInfo order;
+    private Customer customer;
+    private String customerName;
+    private String customerId;
+    private String storeName;
+    private String status = "pending";
+    private ArrayList<Product> productArrayList;
+
+    private Model model;
+
+    private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
-    DatabaseReference orderDbRef;
-    String orderId;
-
-    private FirebaseUser fbUser;
-    DatabaseReference userRef;
-    String userId;
-
-    List<Product> allProducts;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private DatabaseReference dbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.confirm_order_popup);
 
-//        Intent intent = getIntent();
-//        allProducts = intent.getParcelableExtra("order");
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase =FirebaseDatabase.getInstance();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-//        fbUser = FirebaseAuth.getInstance().getCurrentUser();
-//        userRef = FirebaseDatabase.getInstance().getReference();
-//        userId = fbUser.getDisplayName();
 
-//        orderId = mAuth.getUid();
-//        orderDbRef = FirebaseDatabase.getInstance().getReference("Orders");
+        dbRef = FirebaseDatabase.getInstance().getReference().child("Orders");
+        String key = dbRef.push().getKey();
+
+        Intent intent = getIntent();
+        customerName = intent.getStringExtra("customerName");
+        customerId = intent.getStringExtra("customerId");
+//        storeName = intent.getStringExtra("storeName");
+
+        //temporary for testing
+        storeName = "S1";
+        productArrayList = (ArrayList<Product>) intent.getSerializableExtra("order");
+
+        order = new OrderInfo(storeName,status,customerName,customerId,productArrayList,key);
+
+        if (order == null){
+            order = new OrderInfo(storeName,status,customerName,customerId,productArrayList,key);
+        }
+
+        model = Model.getInstance();
 
         cancelBtn = (Button) findViewById(R.id.cancel_button);
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cancel();
-            }
-        });
+        cancelBtn.setOnClickListener(this::onClick);
 
         confirmBtn = (Button) findViewById(R.id.confirm_button);
-//        confirmBtn.setOnClickListener(this);
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Order order = new Order ("hello", userId);
-//                order.addProducts(new Product("Apple", 2.5,3));
-//                order.addProducts(new Product("Banana", 2.25,8));
-//                order.addProducts(new Product("Pear", 1.5,2));
-//
-//                orderDbRef.push().setValue(order);
-                Toast.makeText(PopupActivity.this, "Order Sent", Toast.LENGTH_LONG).show();
-//                updateConfirmOrderData();
-            }
-        });
-
+        confirmBtn.setOnClickListener(this);
 
 //        orderPopup = (Button) findViewById(R.id.checkoutButton);
 //        orderPopup.setOnClickListener(this::showPopup);
@@ -93,22 +97,43 @@ public class PopupActivity extends AppCompatActivity{
     }
 
     public void cancel (){
-        Intent intent = new Intent(PopupActivity.this, ShoppingCar.class);
+        Intent intent = new Intent(PopupActivity.this, DisplayItemsInShoppingCarActivity.class);
         Toast.makeText(this,"Order Canceled", Toast.LENGTH_SHORT).show();
         startActivity(intent);
 
     }
 
-    public void updateConfirmOrderData (){
-//        Order order = new Order ("hello", userId);
-//        order.addProducts(new Product("Apple", 2.5,3));
-//        order.addProducts(new Product("Banana", 2.25,8));
-//        order.addProducts(new Product("Pear", 1.5,2));
-//
-//        String key = orderDbRef.push().getKey();
-//        orderDbRef.child(key).setValue(order);
-        Toast.makeText(PopupActivity.this, "Order Sent", Toast.LENGTH_LONG).show();
-//        Toast.makeText(this,"Confirm", Toast.LENGTH_SHORT).show();
+    public void getUser(){
+        model.getCustomer(customerId, (Customer customer) -> {
+            this.customer = customer;
+        });
+    }
+
+    public void updateConfirmOrderDataToDb (){
+
+//        dbRef = FirebaseDatabase.getInstance().getReference().child("Order");
+//        String key = dbRef.push().getKey();
+//        OrderInfo order = new OrderInfo(storeName,status,customerName,productArrayList,key);
+//        dbRef.child(key).setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void unused) {
+//                Toast.makeText(PopupActivity.this, "Data send", Toast.LENGTH_LONG).show();
+//            }
+//        });
+
+//        orderDbRef = FirebaseDatabase.getInstance().getReference("Orders");
+
+        model.postOrder(order, (OrderInfo order) -> {
+
+            if (order == null) {
+                Toast.makeText(this, "failed to create Order.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+
+            Toast.makeText(PopupActivity.this, "Data send", Toast.LENGTH_LONG).show();
+        });
+
     }
 
 //    public void showPopup (){
@@ -143,15 +168,18 @@ public class PopupActivity extends AppCompatActivity{
 
 //    }
 
-//    @Override
-//    public void onClick (View view){
-//        switch (view.getId()) {
-//            case R.id.cancel_button:
-//                cancel();
-//                break;
-//            case R.id.confirm_button:
-//                updateConfirmOrderData();
-//                break;
-//        }
-//    }
+    @Override
+    public void onClick (View view){
+        switch (view.getId()) {
+            case R.id.cancel_button:
+                cancel();
+                break;
+            case R.id.confirm_button:
+                updateConfirmOrderDataToDb();
+                Intent intent = new Intent(PopupActivity.this, CustomerPage.class);
+                intent.putExtra("customerName", customerName);
+                startActivity(intent);
+                break;
+        }
+    }
 }

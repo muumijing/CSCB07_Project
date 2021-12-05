@@ -22,7 +22,14 @@
             android:id="@+id/ShoppingCarbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="viewShoppingCar"
             android:text="Shopping Car" />
+
+        <Button
+            android:id="@+id/viewOrders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Orders" />
 
         <Button
             android:id="@+id/customerLogout"

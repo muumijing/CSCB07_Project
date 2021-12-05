@@ -4,12 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-
-import java.util.List;
 
 public class ShoppingCar extends AppCompatActivity {
 //    public List<Product> products;
@@ -19,7 +15,7 @@ public class ShoppingCar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.shopping_car);
+        setContentView(R.layout.shopping_car_layout);
         viewShoppingCarBtn = (Button) findViewById(R.id.checkoutButton);
         viewShoppingCarBtn.setOnClickListener(new View.OnClickListener() {
             @Override

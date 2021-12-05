@@ -17,14 +17,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Order extends AppCompatActivity {
+public class Order extends AppCompatActivity implements Serializable {
 
-    public List<Product> orderProducts;
+    public ArrayList<Product> orderProducts = new ArrayList<>();
     //Pending; Processing; Wait for pick up; Complete; Cancelled; SentOut
     public String status;
 
@@ -37,6 +38,7 @@ public class Order extends AppCompatActivity {
 
     ListView listView_items;
     ListView listView_amount;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,8 +132,20 @@ public class Order extends AppCompatActivity {
         customer = customerId;
     }
 
+    public Order(ArrayList<Product> orderProducts, String status, String store, String customer, String userID) {
+        this.orderProducts = orderProducts;
+        this.status = status;
+        this.store = store;
+        this.customer = customer;
+    }
+
+    public Order (){
+    }
+
     public void addProducts (Product product){
         orderProducts.add(product);
     }
+
+
 
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public class Store {
     public String storeName;
     public List<Product> products_inventory;
-    public List<String> orders;
+    public List<Order> orders;
 
     public String owner;
     public String ownerId;
@@ -14,7 +14,7 @@ public class Store {
     public Store(String storeName){
         this.storeName = storeName;
         products_inventory = new ArrayList<Product>();
-        orders = new ArrayList<String>();
+        orders = new ArrayList<Order>();
     }
 
     public Store() {

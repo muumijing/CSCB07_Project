@@ -6,22 +6,132 @@
     android:layout_height="match_parent"
     tools:context=".DisplayItemsInShoppingCarActivity">
 
-    <ListView
-        android:id="@+id/listViewItems"
-        android:layout_width="410dp"
-        android:layout_height="660dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:weightSum="100">
 
-    <Button
-        android:id="@+id/checkoutButton"
-        android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="@+id/listViewItems"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="#D7D8D8"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/shoppingCarHeading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="13"
+                android:gravity="center_vertical"
+                android:text="Shopping car"
+                android:background="#D7D8D8"
+                android:textSize="24dp"/>
+
+            <ImageButton
+                android:id="@+id/homePageBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="87"
+                app:srcCompat="@drawable/ic_account_settings" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="@+id/listViewItems"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/tvItemName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="33.33"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="#8FD9EF"
+                android:textStyle="bold"
+                android:text="Product Name" />
+
+            <TextView
+                android:id="@+id/tvQuantity"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="33.33"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="#8FD9EF"
+                android:textStyle="bold"
+                android:text="Quantity"/>
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="33.33"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="#8FD9EF"
+                android:textStyle="bold"
+                android:text="Price" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listViewItems"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </ListView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Order Checkout"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="@+id/listViewItems"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listViewItems"
-        app:layout_constraintVertical_bias="0.304" />
+        android:weightSum="100">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_weight="60"
+            android:text="Total     $" />
+
+        <TextView
+            android:id="@+id/orderTotalPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_weight="40"
+            android:text=" Price" />
+
+        <Button
+            android:id="@+id/checkoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:text="Checkout"/>
+    </LinearLayout>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
