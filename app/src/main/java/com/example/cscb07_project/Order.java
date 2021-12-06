@@ -43,9 +43,11 @@ public class Order extends AppCompatActivity implements Serializable {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order);
+        show_orders();
+
     }
 
-    public void show_orders(View view){
+    public void show_orders(){
 
         //for every item in the order, get the string of the item
         //and the amount it needed
@@ -86,7 +88,7 @@ public class Order extends AppCompatActivity implements Serializable {
         listView_items.setAdapter(arrayAdapter_items);
         listView_amount.setAdapter(arrayAdapter_amount);
 
-        TextView order_id = view.findViewById(R.id.orderid);
+        TextView order_id = (TextView) findViewById(R.id.orderid);
         order_id.setText("Order id is " + orderId);
     }
 
