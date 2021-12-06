@@ -47,8 +47,9 @@ public class CustomProductAdapter extends BaseAdapter {
             viewHolder = (viewHolder) convertView.getTag();
         }
 
+
         CustomProductView store = products.get(position);
-        viewHolder.price.setText(store.getProductPrice());
+        viewHolder.price.setText(store.getProductPriceString());
         viewHolder.name.setText(store.getProductName());
         viewHolder.quantity.setText(store.getProductQuantity());
         return convertView;

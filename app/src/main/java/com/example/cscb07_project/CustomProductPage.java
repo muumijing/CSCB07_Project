@@ -103,7 +103,7 @@ public class CustomProductPage extends AppCompatActivity {
 //            CustomProductAdapter CustomProductAdapter = new CustomProductAdapter(CustomProductPage.this, products);
 //            listView.setAdapter(CustomProductAdapter);
         } else {
-            Toast.makeText(CustomProductPage.this, "数据错误！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CustomProductPage.this, "data error!", Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -117,21 +117,7 @@ public class CustomProductPage extends AppCompatActivity {
 //        customProductViewsInCars.clear();
     }
 
-    private void InitData() {
-        //HashMap<String, String> StoreDataMap = new HashMap<String, String>();
-        //SaveData(StoreDataMap);
-        //stores = new ArrayList<>();
-        //for(Map.Entry<String, String>entry: StoreDataMap.entrySet()){
-        //CustomStoreView store = new CustomStoreView(entry.getKey(),entry.getValue());//这里写传入的数据
-        //stores.add(store);
-        products = new ArrayList<>();
-        CustomProductView p0 = new CustomProductView(storeData.StoreName, "apple", 1, 2);
-        products.add(p0);
-        CustomProductView p1 = new CustomProductView(storeData.StoreName, "banana", 2, 2);
-        products.add(p1);
-        CustomProductView p2 = new CustomProductView(storeData.StoreName, "bananananananan", 3, 4);
-        products.add(p2);
-    }
+
 
     private void requestDataAsync() {
         db = FirebaseDatabase.getInstance();
@@ -142,7 +128,7 @@ public class CustomProductPage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     String ProductName = ds.child("name").getValue(String.class);
-                    Integer ProductPrice = ds.child("price").getValue(Integer.class);
+                    Double ProductPrice = ds.child("price").getValue(Double.class);
                     Integer ProductQuantity = ds.child("inventory_quantity").getValue(Integer.class);
                     products.add(new CustomProductView(storeData.StoreName, ProductName, ProductPrice, ProductQuantity));
                 }
@@ -164,8 +150,6 @@ public class CustomProductPage extends AppCompatActivity {
         NewCustomProductAdapter customProductAdapter = new NewCustomProductAdapter(CustomProductPage.this, products, new NewCustomProductAdapter.OnWidgetDealListener() {
             @Override
             public void addShoppingCar(CustomProductView customProductView) {
-                //TODO 这个地方加入你加购物车的逻辑，暂时先用测试数据
-//                    customProductViewsInCars.add(customProductView);
 
                 ShoppingRecord shoppingRecord = new ShoppingRecord();
                 ProductInfo productInfo = new ProductInfo();

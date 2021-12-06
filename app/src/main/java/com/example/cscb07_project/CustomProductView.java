@@ -9,9 +9,9 @@ public class CustomProductView implements Serializable {
     //product的名字
     private Integer ProductQuantity;
     //product的数量
-    private Integer ProductPrice;
+    private Double ProductPrice;
 
-    public CustomProductView(String storeName,String ProductName, Integer ProductQuantity, Integer ProductPrice) {
+    public CustomProductView(String storeName, String ProductName, Double ProductPrice,Integer ProductQuantity) {
         this.storeName = storeName;
         this.ProductName = ProductName;
         this.ProductQuantity = ProductQuantity;
@@ -34,12 +34,18 @@ public class CustomProductView implements Serializable {
         ProductQuantity = productQuantity;
     }
 
-    public Integer getProductPrice() {
+    public Double getProductPrice() {
         return ProductPrice;
     }
 
-    public void setProductPrice(Integer productPrice) {
+    public void setProductPrice(Double productPrice) {
         ProductPrice = productPrice;
+    }
+
+    public String getProductPriceString(){
+        Double price = getProductPrice();
+        String PriceString = ((Double) price).toString();
+        return PriceString;
     }
 
     public String getStoreName() {

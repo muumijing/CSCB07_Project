@@ -3,7 +3,7 @@ package com.example.cscb07_project.database;
 public class ProductInfo {
     private String storeName;//产品所属店铺
     private String productName;//产品
-    private Integer productPrice;//产品价格
+    private Double productPrice;//产品价格
 
     public String getStoreName() {
         return storeName;
@@ -21,11 +21,17 @@ public class ProductInfo {
         this.productName = productName;
     }
 
-    public Integer getProductPrice() {
+    public Double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(Integer productPrice) {
+    public String getProductPriceString(){
+        Double price = getProductPrice();
+        String PriceString = ((Double) price).toString();
+        return PriceString;
+    }
+
+    public void setProductPrice(Double productPrice) {
         this.productPrice = productPrice;
     }
 }

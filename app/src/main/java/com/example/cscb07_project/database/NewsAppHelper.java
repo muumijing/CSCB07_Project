@@ -16,7 +16,6 @@ public class NewsAppHelper extends SQLiteOpenHelper {
     private Context context;
 
 
-    //暂时先这么建表，把店铺名和商品名当作外键，实际上不能这么做
     public static final String CREATE_SHOPPING_CAR = "create table if not exists shopping_car("
             + "shoppingRecordId integer primary key autoincrement,"
             + "account text,"
@@ -52,9 +51,6 @@ public class NewsAppHelper extends SQLiteOpenHelper {
     }
 
 
-    //用户表操作
-    //TODO 添加到购物车一条数据
-    //数量、店铺名、产品名、产品价格
     public boolean addShoppingRecord(ShoppingRecord data) {
         String sql = "insert into shopping_car values("
                 + null + ","
@@ -67,7 +63,7 @@ public class NewsAppHelper extends SQLiteOpenHelper {
         return doSQL(sql);
     }
 
-    //仅仅需要修改的就是数量 先获取数量再进行操作
+
     public boolean alterShoppingRecord(ShoppingRecord data) {
         String sql = "update shopping_car set amount = "
                 + "'" + data.getProductAmount() + "' "
@@ -117,7 +113,7 @@ public class NewsAppHelper extends SQLiteOpenHelper {
                     ProductInfo productInfo = new ProductInfo();
                     productInfo.setProductName(cur.getString(cur.getColumnIndex("productName")));
                     productInfo.setStoreName(cur.getString(cur.getColumnIndex("storeName")));
-                    productInfo.setProductPrice(cur.getInt(cur.getColumnIndex("productPrice")));
+                    productInfo.setProductPrice(cur.getDouble(cur.getColumnIndex("productPrice")));
                     shoppingRecord.setProductInfo(productInfo);
                     list.add(shoppingRecord);
                 } while (cur.moveToNext());
@@ -151,7 +147,7 @@ public class NewsAppHelper extends SQLiteOpenHelper {
                     ProductInfo productInfo = new ProductInfo();
                     productInfo.setProductName(cur.getString(cur.getColumnIndex("productName")));
                     productInfo.setStoreName(cur.getString(cur.getColumnIndex("storeName")));
-                    productInfo.setProductPrice(cur.getInt(cur.getColumnIndex("productPrice")));
+                    productInfo.setProductPrice(cur.getDouble(cur.getColumnIndex("productPrice")));
                     shoppingRecord.setProductInfo(productInfo);
                     list.add(shoppingRecord);
                 } while (cur.moveToNext());

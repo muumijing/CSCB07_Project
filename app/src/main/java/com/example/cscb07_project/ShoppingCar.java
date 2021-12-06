@@ -21,7 +21,7 @@ public class ShoppingCar extends AppCompatActivity {
     public ArrayList<CustomProductView> products;
     private Button viewShoppingCarBtn;
 //    private OrderInfo order;
-    private Integer price = 0;
+    private Double price = 0.0;
     private String customerName;
     private String customerId;
 
@@ -103,8 +103,8 @@ public class ShoppingCar extends AppCompatActivity {
                 CustomProductView customProductView = new CustomProductView(
                         data.get(i).getProductInfo().getStoreName(),
                         data.get(i).getProductInfo().getProductName(),
-                        data.get(i).getProductAmount(),
-                        data.get(i).getProductInfo().getProductPrice());
+                        data.get(i).getProductInfo().getProductPrice(),
+                        data.get(i).getProductAmount());
                 list.add(customProductView);
                 price += data.get(i).getProductInfo().getProductPrice();
             }
@@ -114,8 +114,8 @@ public class ShoppingCar extends AppCompatActivity {
 
     public void viewDetailShoppingCar (){
 
-        DataManager.getInstance().deleteAllShoppingRecord(Global.account);
-        newCustomOrderInfoAdapter.update();
+
+
 
         Intent intent = new Intent(ShoppingCar.this, PopupActivity.class);
         orderInfo.setProductList(getData());
@@ -123,9 +123,9 @@ public class ShoppingCar extends AppCompatActivity {
         intent.putExtra("customerName", customerName);
         intent.putExtra("customerId", customerId);
         startActivity(intent);
+        DataManager.getInstance().deleteAllShoppingRecord(Global.account);
+        newCustomOrderInfoAdapter.update();
     }
 
-//    public List<Product> getOrderList (){
-//        return products;
-//    }
+
 }
