@@ -116,8 +116,13 @@ public class StoreOwnerPage extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public void Toshowallorders(View view) {
-        startActivity(new Intent(this, allorders.class));
+    public void ToShowAllOrders(View view) {
+        Intent intent = new Intent(this, allorders.class);
+        intent.putExtra("username", username);
+        intent.putExtra("ownerId", ownerId);
+        intent.putExtra("storeName", storeName);
+
+        startActivity(intent);
     }
 
 }
