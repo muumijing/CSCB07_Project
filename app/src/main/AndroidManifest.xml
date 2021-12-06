@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CSCB07_Project">
         <activity
+            android:name=".CustomProductPage"
+            android:exported="false" />
+        <activity
+            android:name=".CustomStorePage"
+            android:exported="false" />
+        <activity
             android:name=".DisplayPendingOrderActivity"
             android:exported="false" />
         <activity

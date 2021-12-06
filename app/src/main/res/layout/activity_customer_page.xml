@@ -19,7 +19,14 @@
             android:text="Welcome" />
 
         <Button
-            android:id="@+id/ShoppingCarbutton"
+            android:id="@+id/viewProducts"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+
+            android:text="Products" />
+
+        <Button
+            android:id="@+id/ShoppingCarButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="viewShoppingCar"
@@ -30,6 +37,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="View Orders" />
+
+
 
         <Button
             android:id="@+id/customerLogout"

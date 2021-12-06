@@ -30,6 +30,8 @@ public class CustomerPage extends AppCompatActivity {
     private Button ShoppingCarBtn;
     private Button LogoutBtn;
     private Button viewOrderBtn;
+    private Button ViewBtn;
+
 
     private Order order;
 
@@ -52,7 +54,7 @@ public class CustomerPage extends AppCompatActivity {
         TextView tv = (TextView)findViewById(R.id.welcome);
         tv.setText("Welcome " + username);
 
-        ShoppingCarBtn = (Button) findViewById(R.id.ShoppingCarbutton);
+        ShoppingCarBtn = (Button) findViewById(R.id.ShoppingCarButton);
         ShoppingCarBtn.setOnClickListener(this::viewShoppingCar);
 
         LogoutBtn = (Button) findViewById(R.id.customerLogout);
@@ -60,6 +62,9 @@ public class CustomerPage extends AppCompatActivity {
 
         viewOrderBtn = (Button) findViewById(R.id.viewOrders);
         viewOrderBtn.setOnClickListener(this::viewAllOrders);
+
+        ViewBtn = (Button) findViewById(R.id.viewProducts);
+        ViewBtn.setOnClickListener(this::viewProducts);
 
     }
 
@@ -69,7 +74,7 @@ public class CustomerPage extends AppCompatActivity {
 //        orderProductList.add(new Product("Pear", 1.8, 1));
 //        orderProductList.add(new Product("Banana", 3.0, 4));
 
-        Intent intent = new Intent(CustomerPage.this, DisplayItemsInShoppingCarActivity.class);
+        Intent intent = new Intent(CustomerPage.this, ShoppingCar.class);
         intent.putExtra("customerName", username);
         intent.putExtra("orderItem", orderProductList);
         intent.putExtra("orderStatus", "pending");
@@ -82,6 +87,13 @@ public class CustomerPage extends AppCompatActivity {
     public void customerLogout(View view){
         startActivity (new Intent(CustomerPage.this, MainActivity.class));
 
+    }
+
+    public void viewProducts (View view){
+        Intent intent = new Intent(CustomerPage.this, CustomStorePage.class);
+        intent.putExtra("username", username);
+        intent.putExtra("customerId", customerId);
+        startActivity(intent);
     }
 
     public void viewAllOrders (View view){

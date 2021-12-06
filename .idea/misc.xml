@@ -17,7 +17,7 @@
         <entry key="app/src/main/res/layout/activity_category.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_create_store.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/layout/activity_customer_login.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/activity_customer_page.xml" value="0.225" />
+        <entry key="app/src/main/res/layout/activity_customer_page.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_customer_register.xml" value="0.225" />
         <entry key="app/src/main/res/layout/activity_display_items_in_shopping_car.xml" value="0.34322916666666664" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.225" />
@@ -32,10 +32,14 @@
         <entry key="app/src/main/res/layout/all_category_row_items.xml" value="0.275" />
         <entry key="app/src/main/res/layout/category_row_items.xml" value="0.275" />
         <entry key="app/src/main/res/layout/confirm_order_popup.xml" value="0.34322916666666664" />
+        <entry key="app/src/main/res/layout/item_product.xml" value="0.1814814814814815" />
+        <entry key="app/src/main/res/layout/item_store.xml" value="0.1814814814814815" />
         <entry key="app/src/main/res/layout/order.xml" value="0.4973958333333333" />
         <entry key="app/src/main/res/layout/order_display_list_liew.xml" value="0.2078804347826087" />
+        <entry key="app/src/main/res/layout/order_info.xml" value="0.1814814814814815" />
         <entry key="app/src/main/res/layout/recyclerview.xml" value="0.46979166666666666" />
         <entry key="app/src/main/res/layout/shopping_car.xml" value="0.4973958333333333" />
+        <entry key="app/src/main/res/layout/shopping_car_layout.xml" value="0.1814814814814815" />
         <entry key="app/src/main/res/layout/start_orders.xml" value="0.4351851851851852" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.5018518518518519" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.5018518518518519" />
