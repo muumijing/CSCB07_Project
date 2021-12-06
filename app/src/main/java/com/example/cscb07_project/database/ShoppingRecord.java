@@ -5,7 +5,7 @@ package com.example.cscb07_project.database;
  */
 public class ShoppingRecord {
     private String account = "";//账号
-    private int recordId = -1;//记录的id（主键）
+    private int recordId = -1;
     private ProductInfo productInfo = null;//商品信息
     private int productAmount = 0;//该商品的数量
 

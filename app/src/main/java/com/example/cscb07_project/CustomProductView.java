@@ -3,12 +3,10 @@ package com.example.cscb07_project;
 import java.io.Serializable;
 
 public class CustomProductView implements Serializable {
-    private String storeName;//产品所属店铺
+    private String storeName;
 
     private String ProductName;
-    //product的名字
     private Integer ProductQuantity;
-    //product的数量
     private Double ProductPrice;
 
     public CustomProductView (){

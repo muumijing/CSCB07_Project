@@ -8,10 +8,7 @@ import java.util.List;
 
 public class DataManager {
 
-    //添加一条购物车数据
-    //删除一条购物车数据
-    //删除所有购物车数据
-    //查询用户购物车数据
+
     private static DataManager instance = null;
     private Context context = null;
 
@@ -27,7 +24,6 @@ public class DataManager {
         new NewsAppHelper(context).init();
     }
 
-    //TODO 添加到购物车一条数据
     public boolean addShoppingRecord(ShoppingRecord data) {
         if (context == null) {
             return false;
@@ -36,12 +32,12 @@ public class DataManager {
         return new NewsAppHelper(context).addShoppingRecord(data);
     }
 
-    //仅仅需要修改的就是数量 先获取数量再进行操作
+
     public boolean alterShoppingRecord(ShoppingRecord data) {
         if (context == null) {
             return false;
         }
-        //仅仅是为了方便，才在这加的
+
         data.setAccount(Global.account);
         return new NewsAppHelper(context).alterShoppingRecord(data);
     }
@@ -50,7 +46,6 @@ public class DataManager {
         if (context == null) {
             return false;
         }
-        //仅仅是为了方便，才在这加的
         data.setAccount(Global.account);
         return new NewsAppHelper(context).deleteShoppingRecord(data);
     }

@@ -32,6 +32,8 @@ public class CustomProductPage extends AppCompatActivity {
     FirebaseDatabase db;
     DatabaseReference Products;
     List<CustomProductView> products;
+    private String username = "";
+    private String customerId = "";
     private RecyclerView recyclerView;
     //DatabaseReference ProductsPrice;
     //DatabaseReference ProductsQuantity;
@@ -48,6 +50,8 @@ public class CustomProductPage extends AppCompatActivity {
         setContentView(R.layout.activity_custom_product_page);
         //intent
         Intent intent = getIntent();
+        username = intent.getStringExtra("username");
+        customerId = intent.getStringExtra("customerId");
         if (intent != null && intent.getExtras() != null) {
             storeData = (CustomStoreView) intent.getExtras().getSerializable(BUNDLE_ARG_STORE_DATA);
         }
@@ -59,6 +63,8 @@ public class CustomProductPage extends AppCompatActivity {
     public void viewShoppingCar(View view) {
         //TODO 这个地方利用此界面加购物车的数据跳转
         Intent intent = new Intent(CustomProductPage.this, ShoppingCar.class);
+        intent.putExtra("customerName", username);
+        intent.putExtra("customerId", customerId);
 //      intent.putExtra("items", orderProductList);
 //        OrderInfo orderInfo = new OrderInfo();
 //        orderInfo.setData(customProductViewsInCars);

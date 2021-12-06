@@ -61,6 +61,8 @@ public class CustomStorePage extends AppCompatActivity {
 
         Intent intent = new Intent(CustomStorePage.this, ShoppingCar.class);
 //       intent.putExtra("items", orderProductList);
+        intent.putExtra("customerName", username);
+        intent.putExtra("customerId", customerId);
         startActivity(intent);
     }
 
@@ -98,9 +100,10 @@ public class CustomStorePage extends AppCompatActivity {
         listView.setOnItemClickListener((parent, view, position, id) -> {
             CustomStoreView store = stores.get(position);
 
-            //把序列化的数据传递给商品列表界面
             Intent intent = new Intent(CustomStorePage.this, CustomProductPage.class);
             Bundle bundle = new Bundle();
+            intent.putExtra("customerName", username);
+            intent.putExtra("customerId", customerId);
             bundle.putSerializable(CustomProductPage.BUNDLE_ARG_STORE_DATA, store);
             intent.putExtras(bundle);
             intent.putExtras(bundle);

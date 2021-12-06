@@ -79,28 +79,6 @@ public class DisplayItemsInShoppingCarActivity extends AppCompatActivity {
                 backToHomePage();
             }
         });
-
-//        ListView listView = (ListView) findViewById(R.id.listViewItems);
-//
-//        products.add(new Product("Apple", 2.3, 3));
-//        products.add(new Product("Pear", 1.8, 1));
-//        products.add(new Product("Banana", 3.0, 4));
-//
-//        ItemAdapter itemAdapter = new ItemAdapter(this, R.layout.shopping_car, products);
-//
-//        listView.setAdapter(itemAdapter);
-//
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intent = new Intent(DisplayItemsInShoppingCarActivity.this, PopupActivity.class);
-//                startActivity(intent);
-//
-//            }
-//        });
-
-
     }
 
     public void toConfirmOrderCheckout (){
