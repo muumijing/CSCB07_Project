@@ -21,14 +21,14 @@
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/orderid"
+            android:id="@+id/status"
             android:text="Status"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:layout_below="@id/orderid"/>
 
-       <Button
+        <Button
             android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
