@@ -11,6 +11,10 @@ public class CustomProductView implements Serializable {
     //product的数量
     private Double ProductPrice;
 
+    public CustomProductView (){
+
+    }
+
     public CustomProductView(String storeName, String ProductName, Double ProductPrice,Integer ProductQuantity) {
         this.storeName = storeName;
         this.ProductName = ProductName;

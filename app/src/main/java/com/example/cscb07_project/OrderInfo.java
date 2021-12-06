@@ -28,8 +28,8 @@ public class OrderInfo implements Serializable {
         this.orderId = orderId;
     }
 
-    public OrderInfo(String storeName, String status, String customerName) {
-        this.storeName = storeName;
+    public OrderInfo(String customerId, String status, String customerName) {
+        this.customerId = customerId;
         this.status = status;
         this.customerName = customerName;
     }

@@ -26,7 +26,6 @@ public class ShoppingCar extends AppCompatActivity {
     private String customerId;
 
     //TODO 加入购物车的信息
-    private OrderInfo orderInfo = new OrderInfo();
     //    public static final String BUNDLE_ARG_ORDER_INFO = "ORDER_INFO";
     private NewCustomOrderInfoAdapter newCustomOrderInfoAdapter;
 
@@ -114,10 +113,8 @@ public class ShoppingCar extends AppCompatActivity {
 
     public void viewDetailShoppingCar (){
 
-
-
-
         Intent intent = new Intent(ShoppingCar.this, PopupActivity.class);
+        OrderInfo orderInfo = new OrderInfo(customerId, "pending",customerName);
         orderInfo.setProductList(getData());
         intent.putExtra("order", orderInfo);
         intent.putExtra("customerName", customerName);

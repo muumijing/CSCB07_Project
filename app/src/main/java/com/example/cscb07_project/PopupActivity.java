@@ -71,10 +71,10 @@ public class PopupActivity extends AppCompatActivity implements View.OnClickList
 //        storeName = intent.getStringExtra("storeName");
         productArrayList = order.productList;
 
-        order = new OrderInfo(status,customerName,customerId,productArrayList,key);
+        order = new OrderInfo(status,order.customerName,order.customerId,productArrayList,key);
 
         if (order == null){
-            order = new OrderInfo(status,customerName,customerId,productArrayList,key);
+            order = new OrderInfo(status,order.customerName,order.customerId,productArrayList,key);
         }
 
         model = Model.getInstance();

@@ -53,7 +53,6 @@ public class CustomStorePage extends AppCompatActivity {
         customerId = intent.getStringExtra("customerId");
         ShoppingCarBtn = (Button) findViewById(R.id.ShoppingCarButton);
         ShoppingCarBtn.setOnClickListener(this::viewShoppingCar);
-        DataManager.getInstance().init(getApplicationContext());
         initView();
     }
 
