@@ -55,6 +55,9 @@
             android:name=".ShoppingCar"
             android:exported="false" />
         <activity
+            android:name=".allorders"
+            android:exported="false" />
+        <activity
             android:name=".CreateStoreActivity"
             android:exported="false" />
         <activity
