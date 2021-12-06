@@ -108,12 +108,6 @@ public class ShoppingCar extends AppCompatActivity {
     }
 
     public void viewDetailShoppingCar() {
-        //Intent intent = new Intent(ShoppingCar.this, PlaceOrderActivity.class);
-//        order.orderProducts.add(new Product("Apple", 2.3, 3));
-//        order.orderProducts.add(new Product("Banana", 1.8, 1));
-//        order.orderProducts.add(new Product("Pear", 3.5, 4));
-
-        //删除购物车数据，刷新列表
 
         DataManager.getInstance().deleteAllShoppingRecord(Global.account);
         newCustomOrderInfoAdapter.update();
