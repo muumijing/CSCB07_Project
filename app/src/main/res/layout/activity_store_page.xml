@@ -150,7 +150,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="32dp"
-        android:onClick="Toshowallorders"
+        android:onClick="ToShowAllOrders"
         android:text="Show Orders"
         app:layout_constraintBottom_toTopOf="@+id/ownerLogout"
         app:layout_constraintEnd_toEndOf="parent"
