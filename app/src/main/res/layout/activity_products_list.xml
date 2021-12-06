@@ -44,7 +44,7 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
         android:id="@+id/productRv"
         android:layout_width="411dp"
         android:layout_height="550dp"
@@ -55,7 +55,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headers"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints" >
+
+    </ListView>
 
     <Button
         android:id="@+id/button2"

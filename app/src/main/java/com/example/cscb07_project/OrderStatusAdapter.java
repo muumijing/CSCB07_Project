@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,7 +32,7 @@ public class OrderStatusAdapter extends ArrayAdapter<OrderInfo> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         OrderInfo order = getItem(position);
-
+        System.out.println("f");
         String storeName = order.storeName;
         String numberOfItems = ((Integer) order.productList.size()).toString();
         String OrderId = order.orderId;
