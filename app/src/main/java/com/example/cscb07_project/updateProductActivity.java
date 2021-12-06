@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 public class updateProductActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText addProductName, addPrice, addQuantity;
     private Button save;
+    private Button back;
 
 
     private Store store;
@@ -40,6 +41,8 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
 
         save = (Button) findViewById(R.id.save);
         save.setOnClickListener(this);
+        back = (Button) findViewById(R.id.back);
+        back.setOnClickListener(this);
         getStore();
     }
     //get the store by ownerId
@@ -89,10 +92,10 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
                         storesRef.child(storeName).child("products").child(productName).setValue(product);
 
                         Toast.makeText(updateProductActivity.this, "product has been saved", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(updateProductActivity.this, StoreOwnerPage.class);
-                        intent.putExtra("ownerId", ownerId);
-                        intent.putExtra("storeName", storeName);
-                        startActivity(intent);
+                        //Intent intent = new Intent(updateProductActivity.this, StoreOwnerPage.class);
+                        //intent.putExtra("ownerId", ownerId);
+                        //intent.putExtra("storeName", storeName);
+                        //startActivity(intent);
                     }
                 }
 
@@ -120,10 +123,20 @@ public class updateProductActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    public void back(){
+        Intent intent = new Intent(updateProductActivity.this, StoreOwnerPage.class);
+        intent.putExtra("ownerId", ownerId);
+        intent.putExtra("storeName", storeName);
+        startActivity(intent);
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.save) {
             updateItem();
+        }
+        if(v.getId() == R.id.back){
+            back();
         }
     }
 

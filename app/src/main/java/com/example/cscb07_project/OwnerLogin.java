@@ -56,7 +56,7 @@ public class OwnerLogin extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren()){
                     String e = ds.child("email").getValue(String.class);
-                    System.out.println(e);
+
                     String p = ds.child("password").getValue(String.class);
                     if(e.equals(email)){
                         found = true;

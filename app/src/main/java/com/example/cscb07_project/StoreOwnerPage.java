@@ -66,16 +66,7 @@ public class StoreOwnerPage extends AppCompatActivity{
 
         model = Model.getInstance();
         getStore();
-        //products = (ListView) findViewById(R.id.products);
-        //products.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        //    @Override
-        //      public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        //        Intent intent = new Intent(StoreOwnerPage.this, ProductListActivity.class);
-        //        intent.putExtra("ownerId", ownerId);
-        //        intent.putExtra("i", i);
-        //        startActivity(intent);
-        //    }
-        //});
+
 
     }
 
@@ -89,8 +80,7 @@ public class StoreOwnerPage extends AppCompatActivity{
                 return;
             }
             this.store = store;
-            //ProductListAdapter adapter = new ProductListAdapter(this, R.layout.activity_products_list, store.products_inventory);
-            //products.setAdapter(adapter);
+
             storeName = this.store.storeName;
         });
     }
