@@ -21,7 +21,6 @@ public class ShoppingCar extends AppCompatActivity {
     public ArrayList<CustomProductView> products;
     private Button viewShoppingCarBtn;
 //    private OrderInfo order;
-    private Double price = 0.0;
     private String customerName;
     private String customerId;
 
@@ -87,8 +86,6 @@ public class ShoppingCar extends AppCompatActivity {
 //        products.add(new Product("Apple", 2.3, 3));
 //        products.add(new Product("Pear", 1.8, 1));
 //        products.add(new Product("Banana", 3.0, 4));
-        TextView tv = (TextView)findViewById(R.id.price);
-        tv.setText("Total price: " + price);
 
 
     }
@@ -105,7 +102,6 @@ public class ShoppingCar extends AppCompatActivity {
                         data.get(i).getProductInfo().getProductPrice(),
                         data.get(i).getProductAmount());
                 list.add(customProductView);
-                price += data.get(i).getProductInfo().getProductPrice();
             }
         }
         return list;
