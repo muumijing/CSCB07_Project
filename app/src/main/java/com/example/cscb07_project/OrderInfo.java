@@ -12,14 +12,14 @@ public class OrderInfo implements Serializable {
     public String status;
     public String customerName;
     public String customerId;
-    public ArrayList<Product> productList;
+    public ArrayList<CustomProductView> productList;
     public String orderId;
 
     public OrderInfo (){
 
     }
 
-    public OrderInfo(String storeName, String status, String customerName, String customerId, ArrayList<Product> productList, String orderId) {
+    public OrderInfo(String status, String customerName, String customerId, ArrayList<CustomProductView> productList, String orderId) {
         this.storeName = storeName;
         this.status = status;
         this.customerId = customerId;
@@ -62,11 +62,11 @@ public class OrderInfo implements Serializable {
         this.customerName = customerName;
     }
 
-    public ArrayList<Product> getProductList() {
+    public ArrayList<CustomProductView> getProductList() {
         return productList;
     }
 
-    public void setProductList(ArrayList<Product> productList) {
+    public void setProductList(ArrayList<CustomProductView> productList) {
         this.productList = productList;
     }
 

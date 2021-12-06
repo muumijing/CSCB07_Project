@@ -6,10 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.cscb07_project.database.DataManager;
@@ -20,10 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCar extends AppCompatActivity {
-    //    public List<Product> products;
+    public ArrayList<CustomProductView> products;
     private Button viewShoppingCarBtn;
-    private Order order;
+//    private OrderInfo order;
     private Integer price = 0;
+    private String customerName;
+    private String customerId;
 
     //TODO 加入购物车的信息
     private OrderInfo orderInfo = new OrderInfo();
@@ -37,6 +37,11 @@ public class ShoppingCar extends AppCompatActivity {
 //        if (intent != null && intent.getExtras() != null) {
 //            orderInfo = (OrderInfo) intent.getExtras().getSerializable(BUNDLE_ARG_ORDER_INFO);
 //        }
+
+        Intent intent = getIntent();
+        customerName = intent.getStringExtra("customerName");
+        customerId = intent.getStringExtra("customerId");
+
         setContentView(R.layout.shopping_car);
         viewShoppingCarBtn = (Button) findViewById(R.id.checkoutButton);
         viewShoppingCarBtn.setOnClickListener(new View.OnClickListener() {
@@ -89,8 +94,8 @@ public class ShoppingCar extends AppCompatActivity {
 
     }
 
-    private List<CustomProductView> getData(){
-        List<CustomProductView> list = new ArrayList<>();
+    private ArrayList<CustomProductView> getData(){
+        ArrayList<CustomProductView> list = new ArrayList<>();
         List<ShoppingRecord> data = DataManager.getInstance().getAllShoppingRecord(Global.account);
 
         if (data != null && data.size() > 0) {
@@ -107,13 +112,16 @@ public class ShoppingCar extends AppCompatActivity {
         return list;
     }
 
-    public void viewDetailShoppingCar() {
+    public void viewDetailShoppingCar (){
 
         DataManager.getInstance().deleteAllShoppingRecord(Global.account);
         newCustomOrderInfoAdapter.update();
 
         Intent intent = new Intent(ShoppingCar.this, PopupActivity.class);
-        intent.putExtra("order", (Parcelable) order);
+        orderInfo.setProductList(getData());
+        intent.putExtra("order", orderInfo);
+        intent.putExtra("customerName", customerName);
+        intent.putExtra("customerId", customerId);
         startActivity(intent);
     }
 

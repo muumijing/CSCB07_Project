@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="87"
-                app:srcCompat="@drawable/ic_account_settings" />
+                app:srcCompat="@drawable/ic_return_home" />
 
 
         </LinearLayout>

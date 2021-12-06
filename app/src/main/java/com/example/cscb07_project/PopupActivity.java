@@ -39,7 +39,7 @@ public class PopupActivity extends AppCompatActivity implements View.OnClickList
     private String customerId;
     private String storeName;
     private String status = "pending";
-    private ArrayList<Product> productArrayList;
+    private ArrayList<CustomProductView> productArrayList;
 
     private Model model;
 
@@ -64,16 +64,17 @@ public class PopupActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = getIntent();
         customerName = intent.getStringExtra("customerName");
         customerId = intent.getStringExtra("customerId");
+        order = (OrderInfo) intent.getSerializableExtra("order");
 //        storeName = intent.getStringExtra("storeName");
 
-        //temporary for testing
-        storeName = "S1";
-        productArrayList = (ArrayList<Product>) intent.getSerializableExtra("order");
+//        //temporary for testing
+//        storeName = intent.getStringExtra("storeName");
+        productArrayList = order.productList;
 
-        order = new OrderInfo(storeName,status,customerName,customerId,productArrayList,key);
+        order = new OrderInfo(status,customerName,customerId,productArrayList,key);
 
         if (order == null){
-            order = new OrderInfo(storeName,status,customerName,customerId,productArrayList,key);
+            order = new OrderInfo(status,customerName,customerId,productArrayList,key);
         }
 
         model = Model.getInstance();
@@ -97,7 +98,9 @@ public class PopupActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void cancel (){
-        Intent intent = new Intent(PopupActivity.this, DisplayItemsInShoppingCarActivity.class);
+        Intent intent = new Intent(PopupActivity.this, ShoppingCar.class);
+        intent.putExtra("customerId", customerId);
+        intent.putExtra("customerName", customerName);
         Toast.makeText(this,"Order Canceled", Toast.LENGTH_SHORT).show();
         startActivity(intent);
 
@@ -131,7 +134,7 @@ public class PopupActivity extends AppCompatActivity implements View.OnClickList
             }
 
 
-            Toast.makeText(PopupActivity.this, "Data send", Toast.LENGTH_LONG).show();
+            Toast.makeText(PopupActivity.this, "Order Sent", Toast.LENGTH_LONG).show();
         });
 
     }
@@ -177,6 +180,7 @@ public class PopupActivity extends AppCompatActivity implements View.OnClickList
             case R.id.confirm_button:
                 updateConfirmOrderDataToDb();
                 Intent intent = new Intent(PopupActivity.this, CustomerPage.class);
+                intent.putExtra("customerId", customerId);
                 intent.putExtra("customerName", customerName);
                 startActivity(intent);
                 break;

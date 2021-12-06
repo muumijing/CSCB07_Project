@@ -67,7 +67,7 @@ public class CustomerLogin extends AppCompatActivity {
                             Toast.makeText(CustomerLogin.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
                             ref.child(customerId).child("login").setValue("true");
                             Intent intent = new Intent(CustomerLogin.this, CustomerPage.class);
-                            intent.putExtra("username", username);
+                            intent.putExtra("customerName", username);
                             intent.putExtra("customerId", customerId);
                             startActivity(intent);
                             return;

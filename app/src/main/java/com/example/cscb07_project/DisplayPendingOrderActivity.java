@@ -43,6 +43,7 @@ public class DisplayPendingOrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DisplayPendingOrderActivity.this, DisplayCompleteOrderStatusActivity.class);
+                intent.putExtra("customerName", customerName);
                 intent.putExtra("customerId", currentCustomerID);
                 startActivity(intent);
             }
@@ -54,6 +55,7 @@ public class DisplayPendingOrderActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DisplayPendingOrderActivity.this, CustomerPage.class);
                 intent.putExtra("customerName", customerName);
+                intent.putExtra("customerId", currentCustomerID);
                 startActivity(intent);
             }
         });

@@ -42,7 +42,7 @@ public class CustomerPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_page);
         Intent intent = getIntent();
-        username = intent.getStringExtra("username");
+        username = intent.getStringExtra("customerName");
         customerId = intent.getStringExtra("customerId");
 
         db = FirebaseDatabase.getInstance();
@@ -51,8 +51,8 @@ public class CustomerPage extends AppCompatActivity {
         DatabaseReference StoreName = ref.child("Store").child("storeName");
         storeName = StoreName.toString();
 
-        TextView tv = (TextView)findViewById(R.id.welcome);
-        tv.setText("Welcome " + username);
+        TextView tv = (TextView)findViewById(R.id.customerName);
+        tv.setText(username);
 
         ShoppingCarBtn = (Button) findViewById(R.id.ShoppingCarButton);
         ShoppingCarBtn.setOnClickListener(this::viewShoppingCar);

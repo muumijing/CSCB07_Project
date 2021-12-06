@@ -114,6 +114,7 @@ public class DisplayItemsInShoppingCarActivity extends AppCompatActivity {
 
     public void backToHomePage (){
         Intent intent = new Intent(DisplayItemsInShoppingCarActivity.this, CustomerPage.class);
+        intent.putExtra("customerId", customerId);
         intent.putExtra("customerName", customerName);
         startActivity(intent);
 
