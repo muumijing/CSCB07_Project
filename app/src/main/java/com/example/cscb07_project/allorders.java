@@ -20,32 +20,36 @@ import java.util.ArrayList;
 public class allorders extends AppCompatActivity {
 
     public RecyclerView RV;
+    public String storeName;
+
 
     // Arraylist for storing data
     public ArrayList<cardmodel> ModelArrayList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview);
-
         RV = findViewById(R.id.rv);
+        storeName = getIntent().getStringExtra("storeName");
+        System.out.println(storeName);
 
-        Intent intent = getIntent();
-        String storeName = intent.getStringExtra("storeName");
 
         // here we have created new array list and added data to it.
         ModelArrayList = new ArrayList<>();
-
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Order");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot order_ids: snapshot.getChildren()){
                     String store_name = order_ids.child("storeName").getValue(String.class);
+                    System.out.println(store_name);
                     if (store_name.equals(storeName)){
                         String Status = order_ids.child("status").getValue(String.class);
+                        System.out.println(Status);
                         String orderId = order_ids.toString();
+                        System.out.println(orderId);
                         ModelArrayList.add(new cardmodel(orderId, Status));
                     }
                 }
@@ -69,5 +73,14 @@ public class allorders extends AppCompatActivity {
         RV.setLayoutManager(linearLayoutManager);
         RV.setAdapter(orderAdapter);
     }
+
+    public void back(View view){
+        Intent intent = new Intent(allorders.this, StoreOwnerPage.class);
+        intent.putExtra("storeName", storeName);
+        startActivity(intent);
+    }
+
+
+
 }
 
