@@ -79,9 +79,9 @@ public class ProductListAdapter extends ArrayAdapter<productDetail> {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        System.out.println("f");
+
         productDetail model = getItem(position);
-        System.out.println("c");
+
 
 
         ViewHolder viewHolder;
@@ -90,11 +90,11 @@ public class ProductListAdapter extends ArrayAdapter<productDetail> {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(resource, parent, false);
             viewHolder = new ViewHolder();
-            System.out.println("e");
+
             viewHolder.productNameTV = (TextView) convertView.findViewById(R.id.productNameTV);
             viewHolder.productPriceTV = (TextView) convertView.findViewById(R.id.productPriceTV);
             viewHolder.productQuantityTV = (TextView) convertView.findViewById(R.id.productQuantityTV);
-            System.out.println("a");
+
 
             convertView.setTag(convertView);
 
