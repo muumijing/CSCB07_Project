@@ -29,9 +29,7 @@ public class MVPOwnerPresenter implements Contract.MVPOwnerPresenter{
         }
         else if(!model.emailExists(Email)){
             view.displayMessage("Email not found");
-        }
-        else if (Password.equals("")){
-            view.displayMessage("Password cannot be empty");
+
         }
         else {
             if (!model.userFound(Email, Password)){
