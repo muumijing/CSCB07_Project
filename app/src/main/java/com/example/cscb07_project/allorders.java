@@ -21,7 +21,7 @@ public class allorders extends AppCompatActivity {
 
     public RecyclerView RV;
     public String storeName;
-    private String ownerId;
+    public String ownerId;
 
 
     // Arraylist for storing data
@@ -35,23 +35,23 @@ public class allorders extends AppCompatActivity {
         RV = findViewById(R.id.rv);
         storeName = getIntent().getStringExtra("storeName");
         ownerId = getIntent().getStringExtra("ownerId");
-        System.out.println(storeName);
+
 
 
         // here we have created new array list and added data to it.
-        ModelArrayList = new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Order");
+        ModelArrayList = new ArrayList<cardmodel>();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot order_ids: snapshot.getChildren()){
-                    String store_name = order_ids.child("storeName").getValue(String.class);
-                    System.out.println(store_name);
+                    String store_name = order_ids.child("productList").child("0").child("storeName").getValue(String.class);
+
                     if (store_name.equals(storeName)){
                         String Status = order_ids.child("status").getValue(String.class);
-                        System.out.println(Status);
-                        String orderId = order_ids.toString();
-                        System.out.println(orderId);
+
+                        String orderId = order_ids.child("orderId").getValue(String.class);
+
                         ModelArrayList.add(new cardmodel(orderId, Status));
                     }
                 }
@@ -63,23 +63,21 @@ public class allorders extends AppCompatActivity {
             }
         });
 
-
         // we are initializing our adapter class and passing our arraylist to it.
         OrderAdapter orderAdapter = new OrderAdapter(this, ModelArrayList);
 
         // below line is for setting a layout manager for our recycler view.
         // here we are creating vertical list so we will provide orientation as vertical
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         // in below two lines we are setting layout manager and adapter to our recycler view.
-        RV.setLayoutManager(linearLayoutManager);
+        RV.setLayoutManager(new LinearLayoutManager(this));
         RV.setAdapter(orderAdapter);
     }
 
     public void back(View view){
         Intent intent = new Intent(allorders.this, StoreOwnerPage.class);
-        intent.putExtra("storeName", storeName);
         intent.putExtra("ownerId", ownerId);
+        intent.putExtra("storeName", storeName);
         startActivity(intent);
     }
 
