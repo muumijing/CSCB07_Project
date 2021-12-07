@@ -29,6 +29,7 @@ public class CustomProductPage extends AppCompatActivity {
     public static final String BUNDLE_ARG_STORE_DATA = "STORE_DATA";
     private CustomStoreView storeData;//商品界面传递过来的数据
     private Button ShoppingCarBtn;
+    private Button returnHome;
     FirebaseDatabase db;
     DatabaseReference Products;
     List<CustomProductView> products;
@@ -57,6 +58,17 @@ public class CustomProductPage extends AppCompatActivity {
         }
         ShoppingCarBtn = (Button) findViewById(R.id.ShoppingCarButton);
         ShoppingCarBtn.setOnClickListener(this::viewShoppingCar);
+
+        returnHome = (Button)findViewById(R.id.InnerStoreToHomeBtn);
+        returnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CustomProductPage.this, CustomerPage.class);
+                intent.putExtra("customerName", username);
+                intent.putExtra("customerId", customerId);
+                startActivity(intent);
+            }
+        });
         initView();
     }
 
