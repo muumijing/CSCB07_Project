@@ -10,7 +10,7 @@ public class Presenter {
         this.ownerView = view;
     }
 
-    public Presenter(Model model, CustomerLogin view){
+    public Presenter(Model model, MVP_CustomerLogin_Activity view){
         this.model = model;
         this.customerView = view;
     }

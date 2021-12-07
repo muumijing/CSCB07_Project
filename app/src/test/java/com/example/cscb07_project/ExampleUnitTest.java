@@ -38,13 +38,7 @@ public class ExampleUnitTest {
 
         presenter.ownerLogin(email, password);
 
-        // verify if model.authenticate() has run
-        //verify(model).authenticate1(eq(email), eq(password), (Consumer<Owner>) captor.capture());
-        //Consumer<Owner> callback = (Consumer<Owner>) captor.getValue();
-        //callback.accept(owner);
 
-        // verify if view.redirectToPatientDashboard has run
-        //verify(view1, times(1)).linkToOwnerPage(any());
 
         verify(view1, times(0)).loginFailure();
     }
