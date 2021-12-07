@@ -40,6 +40,10 @@ public class OwnerLogin extends AppCompatActivity {
     public void onOwnerRegister(View view){
         startActivity(new Intent(this, OwnerRegister.class));
     }
+    
+        public void MVPOwnerLogin(View view){
+        startActivity(new Intent(this, MVPOwnerLogin.class));
+    }
 
     public void ownerLogin(View view){
         inputEmail = findViewById(R.id.email);
