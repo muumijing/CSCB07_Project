@@ -15,4 +15,19 @@ public interface Contract {
     public interface MVPOwnerPresenter{
         public void checkLoginStatus();
     }
+
+    public interface MVPCusModel{
+        public boolean emailExists(String email);
+        public boolean userFound(String email, String password);
+    }
+
+    public interface MVPCusView{
+        public String getEmail();
+        public String getPassword();
+        public void displayMessage(String message);
+    }
+
+    public interface MVPCusPresenter{
+        public void checkLoginStatus();
+    }
 }
