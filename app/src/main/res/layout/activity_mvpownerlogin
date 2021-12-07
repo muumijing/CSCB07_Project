@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OwnerLogin">
+    tools:context=".ownerlogin.MVPOwnerLogin">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,32 +30,18 @@
             android:inputType="textPassword" />
 
 
+        <TextView
+            android:id="@+id/LoginStatus"
+            android:layout_width="221dp"
+            android:layout_height="61dp"
+            android:text="" />
+
         <Button
             android:id="@+id/ownerLogin"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:onClick="ownerLogin"
-            android:text="@string/customerLogin" />
-
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Don't have an account"
-            />
-
-        <Button
-            android:id="@+id/ownerRegister"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="@string/customerRegister"
-            android:onClick="onOwnerRegister"/>
-
-        <Button
-            android:id="@+id/checkLogin"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:onClick="MVPOwnerLogin"
-            android:text="Check if you can login" />
+            android:onClick="handleClick"
+            android:text="Check" />
 
     </LinearLayout>
 

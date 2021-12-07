@@ -1,4 +1,4 @@
-package com.example.cscb07_project.ownerlogin;
+package com.example.cscb07_project;
 
 public interface Contract {
     public interface MVPOwnerModel{
