@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cscb07_project.database.DataManager;
 import com.example.cscb07_project.database.ProductInfo;
@@ -119,17 +120,21 @@ public class ShoppingCar extends AppCompatActivity {
         return list;
     }
 
-    public void viewDetailShoppingCar (){
+    public void viewDetailShoppingCar () {
+        if (products != null) {
 
-        Intent intent = new Intent(ShoppingCar.this, PopupActivity.class);
-        OrderInfo orderInfo = new OrderInfo(customerId, "pending",customerName);
-        orderInfo.setProductList(getData());
-        intent.putExtra("order", orderInfo);
-        intent.putExtra("customerName", customerName);
-        intent.putExtra("customerId", customerId);
-        startActivity(intent);
-        DataManager.getInstance().deleteAllShoppingRecord(Global.account);
-        newCustomOrderInfoAdapter.update();
+            Intent intent = new Intent(ShoppingCar.this, PopupActivity.class);
+            OrderInfo orderInfo = new OrderInfo(customerId, "pending", customerName);
+            orderInfo.setProductList(getData());
+            intent.putExtra("order", orderInfo);
+            intent.putExtra("customerName", customerName);
+            intent.putExtra("customerId", customerId);
+            startActivity(intent);
+            DataManager.getInstance().deleteAllShoppingRecord(Global.account);
+            newCustomOrderInfoAdapter.update();
+        }else{
+            Toast.makeText(ShoppingCar.this,"Empty shoppingCar", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
