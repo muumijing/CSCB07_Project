@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cscb07_project.R;
+
 public class MVPOwnerLogin extends AppCompatActivity implements Contract.MVPOwnerView{
     public Contract.MVPOwnerPresenter presenter;
 
@@ -30,7 +32,7 @@ public class MVPOwnerLogin extends AppCompatActivity implements Contract.MVPOwne
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mvp_ownerlogin);
+        setContentView(R.layout.activity_mvpownerlogin);
 
         presenter = new MVPOwnerPresenter(new MVPOwnerModel(), this);
     }
