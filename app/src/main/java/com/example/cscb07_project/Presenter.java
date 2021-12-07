@@ -3,7 +3,7 @@ package com.example.cscb07_project;
 public class Presenter {
     private Model model;
     private MVP_OwnerLogin_Activity ownerView;
-    private CustomerLogin customerView;
+    private MVP_CustomerLogin_Activity customerView;
 
     public Presenter(Model model, MVP_OwnerLogin_Activity view){
         this.model = model;
