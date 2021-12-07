@@ -25,7 +25,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.Viewholder> 
     public OrderAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // to inflate the layout for each item of recycler view.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.start_orders, parent, false);
-        return new OrderAdapter.Viewholder(view);
+        return new Viewholder(view);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.Viewholder> 
         return ModelArrayList.size();
     }
 
-    public class Viewholder extends RecyclerView.ViewHolder {
+    public static class Viewholder extends RecyclerView.ViewHolder {
 
         public TextView orderidTV, statusTV;
 
