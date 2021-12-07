@@ -17,6 +17,7 @@ public class MVPOwnerModel implements Contract.MVPOwnerModel{
 
     public MVPOwnerModel(){
         emails = new ArrayList<String>();
+        passwords = new ArrayList<String>();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Owners");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -24,6 +25,8 @@ public class MVPOwnerModel implements Contract.MVPOwnerModel{
                 for(DataSnapshot ds: snapshot.getChildren()){
                     String email = ds.child("email").getValue(String.class);
                     emails.add(email);
+                    String password = ds.child("password").getValue(String.class);
+                    passwords.add(password);
                 }
             }
 
@@ -38,28 +41,7 @@ public class MVPOwnerModel implements Contract.MVPOwnerModel{
     }
 
     public boolean userFound(String email, String password){
-        passwords = new ArrayList<String>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Owners");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds: snapshot.getChildren()){
-                    System.out.println("abcabc");
-                    String Email = ds.child("email").getValue(String.class);
-                    System.out.println(Email);
-                    if (Email.equals(email)){
-                        String Password = ds.child("password").getValue(String.class);
-                        System.out.println(Password);
-                        passwords.add(Password);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-        return passwords.get(0).equals(password);
+        return passwords.contains(password);
     }
 
 }
