@@ -34,6 +34,10 @@ public class CustomerLogin extends AppCompatActivity {
         startActivity(new Intent(this, CustomerRegister.class));
     }
 
+    public void MVPCusLogin(View view){
+        startActivity(new Intent(this, MVPCusLogin.class));
+    }
+
     public void customerLogin(View view){
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
