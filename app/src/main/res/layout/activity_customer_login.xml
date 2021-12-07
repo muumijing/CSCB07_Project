@@ -41,7 +41,7 @@
         <TextView
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Don't hava an account"
+            android:text="Don't have an account"
             />
 
         <Button
@@ -50,6 +50,13 @@
             android:layout_height="wrap_content"
             android:text="@string/customerRegister"
             android:onClick="onCustomerRegister"/>
+
+        <Button
+            android:id="@+id/checkLogin"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:onClick="MVPCusLogin"
+            android:text="Check if you can login" />
 
     </LinearLayout>
 
