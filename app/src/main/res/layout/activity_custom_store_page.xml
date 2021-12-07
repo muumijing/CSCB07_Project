@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CustomStorePage"
+    android:weightSum="100"
     android:orientation="vertical">
 
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_weight="70"
+        android:layout_height="50dp"
         android:orientation="horizontal">
 
         <TextView
@@ -43,10 +43,17 @@
 
     <Button
         android:id="@+id/ShoppingCarButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="View Shopping Cart" />
 
+    <Button
+        android:id="@+id/storePageReturnToHomeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Return" />
 
 
 </LinearLayout>

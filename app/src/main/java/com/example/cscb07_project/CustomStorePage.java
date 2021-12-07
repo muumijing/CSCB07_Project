@@ -34,6 +34,7 @@ public class CustomStorePage extends AppCompatActivity {
     private String username = "";
     private String customerId = "";
     private Button ShoppingCarBtn;
+    private Button returnToHomeBtn;
     private ListView listView;
 
 
@@ -53,6 +54,18 @@ public class CustomStorePage extends AppCompatActivity {
         customerId = intent.getStringExtra("customerId");
         ShoppingCarBtn = (Button) findViewById(R.id.ShoppingCarButton);
         ShoppingCarBtn.setOnClickListener(this::viewShoppingCar);
+
+        returnToHomeBtn = (Button) findViewById(R.id.storePageReturnToHomeBtn);
+        returnToHomeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CustomStorePage.this, CustomStorePage.class);
+                intent.putExtra("customerName", username);
+                intent.putExtra("customerId", customerId);
+                startActivity(intent);
+            }
+        });
+
         initView();
     }
 

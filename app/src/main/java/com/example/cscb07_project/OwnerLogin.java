@@ -42,7 +42,7 @@ public class OwnerLogin extends AppCompatActivity {
     }
     
         public void MVPOwnerLogin(View view){
-        startActivity(new Intent(this, MVPOwnerLogin.class));
+//        startActivity(new Intent(this, MVPOwnerLogin.class));
     }
 
     public void ownerLogin(View view){

@@ -7,14 +7,6 @@
     android:weightSum="100">
 
     <TextView
-        android:id="@+id/tvStoreName"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_weight="40"
-        android:gravity="center_vertical"
-        android:text="Store Name" />
-
-    <TextView
         android:id="@+id/tvOrderId"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -27,7 +19,7 @@
         android:id="@+id/tvTotalItems"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_weight="40"
+        android:layout_weight="80"
         android:gravity="center_vertical"
         android:text="Total Items" />
 
