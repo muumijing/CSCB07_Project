@@ -58,7 +58,7 @@ public class Order extends AppCompatActivity implements Serializable {
         ArrayList<String> arrayList_items = new ArrayList<>();
         ArrayList<Integer> arrayList_amount = new ArrayList<>();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Order");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Orders");
 
         Intent intent = getIntent();
         String orderId = intent.getStringExtra("orderId");
@@ -69,8 +69,8 @@ public class Order extends AppCompatActivity implements Serializable {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren()){
-                    String Name = ds.child("name").getValue(String.class);
-                    Integer Amount = ds.child("inventory_quantity").getValue(Integer.class);
+                    String Name = ds.child("productName").getValue(String.class);
+                    Integer Amount = ds.child("productQuantity").getValue(Integer.class);
 
                     arrayList_items.add(Name);
                     arrayList_amount.add(Amount);
@@ -105,7 +105,7 @@ public class Order extends AppCompatActivity implements Serializable {
                 Map<String, Object> map = new HashMap<>();
                 map.put("status", status);
 
-                FirebaseDatabase.getInstance().getReference("Order").child(orderId)
+                FirebaseDatabase.getInstance().getReference("Orders").child(orderId)
                         .updateChildren(map);
             }
         });
@@ -122,7 +122,7 @@ public class Order extends AppCompatActivity implements Serializable {
                 Map<String, Object> map = new HashMap<>();
                 map.put("status", status);
 
-                FirebaseDatabase.getInstance().getReference("Order").child(orderId)
+                FirebaseDatabase.getInstance().getReference("Orders").child(orderId)
                         .updateChildren(map);
             }
         });
