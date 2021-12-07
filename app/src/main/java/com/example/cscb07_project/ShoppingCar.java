@@ -20,6 +20,7 @@ import java.util.List;
 public class ShoppingCar extends AppCompatActivity {
     public ArrayList<CustomProductView> products;
     private Button viewShoppingCarBtn;
+    private Button returnHomeBtn;
 //    private OrderInfo order;
     private String customerName;
     private String customerId;
@@ -46,6 +47,17 @@ public class ShoppingCar extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 viewDetailShoppingCar();
+            }
+        });
+
+        returnHomeBtn = (Button)findViewById(R.id.SCarReturnToHomeBtn);
+        returnHomeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShoppingCar.this, CustomerPage.class);
+                intent.putExtra("customerName", customerName);
+                intent.putExtra("customerId", customerId);
+                startActivity(intent);
             }
         });
 

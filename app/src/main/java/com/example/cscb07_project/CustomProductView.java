@@ -9,6 +9,7 @@ public class CustomProductView implements Serializable {
     private Integer ProductQuantity;
     private Double ProductPrice;
 
+
     public CustomProductView (){
 
     }

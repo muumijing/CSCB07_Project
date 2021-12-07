@@ -79,6 +79,12 @@
         android:layout_gravity="center">
     </Button>
 
+    <Button
+        android:id="@+id/SCarReturnToHomeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Return" />
 
 
 </LinearLayout>

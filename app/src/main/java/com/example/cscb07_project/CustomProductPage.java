@@ -50,7 +50,7 @@ public class CustomProductPage extends AppCompatActivity {
         setContentView(R.layout.activity_custom_product_page);
         //intent
         Intent intent = getIntent();
-        username = intent.getStringExtra("username");
+        username = intent.getStringExtra("customerName");
         customerId = intent.getStringExtra("customerId");
         if (intent != null && intent.getExtras() != null) {
             storeData = (CustomStoreView) intent.getExtras().getSerializable(BUNDLE_ARG_STORE_DATA);

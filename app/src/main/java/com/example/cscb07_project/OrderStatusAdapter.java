@@ -28,6 +28,7 @@ public class OrderStatusAdapter extends ArrayAdapter<OrderInfo> {
         TextView tvOrderId;
     }
 
+
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

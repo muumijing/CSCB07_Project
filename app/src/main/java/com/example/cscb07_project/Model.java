@@ -21,6 +21,8 @@ public class Model {
     private DatabaseReference orderRef;
     private DatabaseReference customerRef;
 
+    public String orderKey;
+
     //private FirebaseAuth auth;
 
     private Model() {
@@ -83,7 +85,7 @@ public class Model {
     }
 
     public void postOrder (OrderInfo order, Consumer<OrderInfo> callback){
-        String orderKey = orderRef.push().getKey();
+        orderKey = orderRef.push().getKey();
         order.orderId = orderKey;
         orderRef.child(orderKey).setValue(order).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

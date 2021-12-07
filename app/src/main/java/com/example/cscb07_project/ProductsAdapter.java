@@ -13,10 +13,10 @@ public class ProductsAdapter extends BaseAdapter{
 
     Context context;
     private int resource;
-    ArrayList<Product> products = new ArrayList<Product>();
+    ArrayList<CustomProductView> products = new ArrayList<CustomProductView>();
 
 
-    public ProductsAdapter (Context context, int resource, ArrayList<Product> products){
+    public ProductsAdapter (Context context, int resource, ArrayList<CustomProductView> products){
         this.context = context;
         this.products = products;
         this.resource = resource;

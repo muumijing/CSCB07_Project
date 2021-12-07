@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="13"
                 android:gravity="center_vertical"
-                android:text="Shopping car"
+                android:text="Order Detail"
                 android:background="#D7D8D8"
                 android:textSize="24dp"/>
 
@@ -87,7 +87,7 @@
                 android:gravity="center"
                 android:background="#8FD9EF"
                 android:textStyle="bold"
-                android:text="Price" />
+                android:text="Store Name" />
 
         </LinearLayout>
 
@@ -125,12 +125,6 @@
             android:layout_weight="40"
             android:text=" Price" />
 
-        <Button
-            android:id="@+id/checkoutButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
-            android:text="Checkout"/>
     </LinearLayout>
 
     </LinearLayout>

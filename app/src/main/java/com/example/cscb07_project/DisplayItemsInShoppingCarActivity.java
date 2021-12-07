@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 public class DisplayItemsInShoppingCarActivity extends AppCompatActivity {
 
-    public ArrayList<Product> products = new ArrayList<Product>();
-    public ArrayList<Order> orders = new ArrayList<Order>();
-    private Order order;
+    public ArrayList<CustomProductView> products = new ArrayList<CustomProductView>();
+    public ArrayList<OrderInfo> orders = new ArrayList<OrderInfo>();
+    private OrderInfo order;
     private Button checkoutBtn;
     private ImageButton returnToHome;
     private String storeName;
@@ -41,19 +41,12 @@ public class DisplayItemsInShoppingCarActivity extends AppCompatActivity {
         storeName = intent.getStringExtra("storeName");
         customerId = intent.getStringExtra("customerId");
         customerName = intent.getStringExtra("customerName");
+        products = (ArrayList<CustomProductView>) intent.getSerializableExtra("orderList");
 
-        order = new Order(storeName, customerId);
-        order.addProducts(new Product("Apple", 2.3, 3));
-        order.addProducts(new Product("Pear", 1.8, 1));
-        order.addProducts(new Product("Banana", 3.0, 4));
+//        order = new OrderInfo(storeName, customerId);
 
-//        products.add(new Product("Apple", 2.3, 3));
-//        products.add(new Product("Pear", 1.8, 1));
-//        products.add(new Product("Banana", 3.0, 4));
-
-        products = order.orderProducts;
-        for (Product p : products){
-            totalPrice += p.getPrice();
+        for (CustomProductView p : products){
+            totalPrice += p.getProductPrice();
         }
 
         tvTotalPrice = (TextView) findViewById(R.id.orderTotalPrice);
@@ -64,13 +57,13 @@ public class DisplayItemsInShoppingCarActivity extends AppCompatActivity {
         lvOrderItems.setAdapter(productsAdapter);
 
 
-        checkoutBtn = (Button) findViewById(R.id.checkoutButton);
-        checkoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toConfirmOrderCheckout();
-            }
-        });
+//        checkoutBtn = (Button) findViewById(R.id.checkoutButton);
+//        checkoutBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                toConfirmOrderCheckout();
+//            }
+//        });
 
         returnToHome = (ImageButton) findViewById(R.id.homePageBtn);
         returnToHome.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +79,6 @@ public class DisplayItemsInShoppingCarActivity extends AppCompatActivity {
         intent.putExtra("storeName", storeName);
         intent.putExtra("customerId", customerId);
         intent.putExtra("customerName", customerName);
-        intent.putExtra("order", order.orderProducts);
         startActivity(intent);
     }
 

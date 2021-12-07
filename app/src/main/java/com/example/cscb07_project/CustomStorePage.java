@@ -49,7 +49,7 @@ public class CustomStorePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_store_page);
         Intent intent = getIntent();
-        username = intent.getStringExtra("username");
+        username = intent.getStringExtra("customerName");
         customerId = intent.getStringExtra("customerId");
         ShoppingCarBtn = (Button) findViewById(R.id.ShoppingCarButton);
         ShoppingCarBtn.setOnClickListener(this::viewShoppingCar);
@@ -60,9 +60,9 @@ public class CustomStorePage extends AppCompatActivity {
 
 
         Intent intent = new Intent(CustomStorePage.this, ShoppingCar.class);
-//       intent.putExtra("items", orderProductList);
         intent.putExtra("customerName", username);
         intent.putExtra("customerId", customerId);
+//       intent.putExtra("items", orderProductList);
         startActivity(intent);
     }
 

@@ -89,4 +89,28 @@ public class DisplayPendingOrderActivity extends AppCompatActivity {
             }
         });
     }
+
+//    public ArrayList<CustomProductView> getOrderList(){
+//        orderList = new ArrayList<CustomProductView>();
+//        FirebaseDatabase.getInstance().getReference().child("Orders").orderByChild("orderId").
+//                equalTo(Model.getInstance().orderKey).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                OrderInfo order = (OrderInfo) snapshot.getValue(OrderInfo.class);
+//                orderList = order.productList;
+//
+//                ProductsAdapter productsAdapter = new ProductsAdapter
+//                        (DisplayPendingOrderActivity.this, R.layout.order_display_list_liew, orderList);
+//                lvPending.setAdapter(productsAdapter);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//        return orderList;
+//    }
 }

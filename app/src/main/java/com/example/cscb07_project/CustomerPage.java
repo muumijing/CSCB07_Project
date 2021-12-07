@@ -69,11 +69,6 @@ public class CustomerPage extends AppCompatActivity {
     }
 
     public void viewShoppingCar (View view){
-
-//        orderProductList.add(new Product("Apple", 2.3, 3));
-//        orderProductList.add(new Product("Pear", 1.8, 1));
-//        orderProductList.add(new Product("Banana", 3.0, 4));
-
         Intent intent = new Intent(CustomerPage.this, ShoppingCar.class);
         intent.putExtra("customerName", username);
         intent.putExtra("orderItem", orderProductList);
@@ -91,7 +86,7 @@ public class CustomerPage extends AppCompatActivity {
 
     public void viewProducts (View view){
         Intent intent = new Intent(CustomerPage.this, CustomStorePage.class);
-        intent.putExtra("username", username);
+        intent.putExtra("customerName", username);
         intent.putExtra("customerId", customerId);
         startActivity(intent);
     }
