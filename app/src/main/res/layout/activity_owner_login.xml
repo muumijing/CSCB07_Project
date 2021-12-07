@@ -50,6 +50,13 @@
             android:text="@string/customerRegister"
             android:onClick="onOwnerRegister"/>
 
+        <Button
+            android:id="@+id/checkLogin"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:onClick="MVPOwnerLogin"
+            android:text="Check if you can login" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
