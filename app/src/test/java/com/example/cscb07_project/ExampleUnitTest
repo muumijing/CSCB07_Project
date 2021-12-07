@@ -1,0 +1,146 @@
+package com.example.cscb07_project;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ */
+@RunWith(MockitoJUnitRunner.class)
+public class ExampleUnitTest {
+
+
+    @Mock
+    MVPOwnerLogin view;
+
+    @Mock
+    MVPOwnerModel model;
+
+    @Mock
+    MVPCusLogin view_cus;
+
+    @Mock
+    MVPCusModel model_cus;
+
+    @Test
+    public void testPresenter_success(){
+        /***stubbing***/
+        when(view.getEmail()).thenReturn("chen@mail.com");
+        when(view.getPassword()).thenReturn("A123123123123");
+
+        when(model.emailExists("chen@mail.com")).thenReturn(true);
+        when(model.userFound("chen@mail.com", "A123123123123")).thenReturn(true);
+
+        MVPOwnerPresenter presenter = new MVPOwnerPresenter(model, view);
+        presenter.checkLoginStatus();
+
+        verify(view).displayMessage("Should be Logged in successfully");
+    }
+
+    @Test
+    public void testPresenter_empty(){
+        /***stubbing***/
+        when(view.getEmail()).thenReturn("");
+
+        MVPOwnerPresenter presenter = new MVPOwnerPresenter(model, view);
+        presenter.checkLoginStatus();
+
+        verify(view).displayMessage("Email cannot be empty");
+    }
+
+    @Test
+    public void testPresenter_EmailNotFound(){
+        /***stubbing***/
+        when(view.getEmail()).thenReturn("chenchen@mail.com");
+
+
+        when(model.emailExists("chenchen@mail.com")).thenReturn(false);
+
+
+        MVPOwnerPresenter presenter = new MVPOwnerPresenter(model, view);
+        presenter.checkLoginStatus();
+
+        verify(view).displayMessage("Email not found");
+    }
+
+
+    @Test
+    public void testPresenter_WrongPassword(){
+        /***stubbing***/
+        when(view.getEmail()).thenReturn("chen@mail.com");
+        when(view.getPassword()).thenReturn("A");
+
+        when(model.emailExists("chen@mail.com")).thenReturn(true);
+        when(model.userFound("chen@mail.com", "A")).thenReturn(false);
+
+        MVPOwnerPresenter presenter = new MVPOwnerPresenter(model, view);
+        presenter.checkLoginStatus();
+
+        verify(view).displayMessage("Wrong Password");
+    }
+
+    @Test
+    public void testPresenter_success_cus(){
+        /***stubbing***/
+        when(view_cus.getEmail()).thenReturn("huairu@mail.com");
+        when(view_cus.getPassword()).thenReturn("A123123123123");
+
+        when(model_cus.emailExists("huairu@mail.com")).thenReturn(true);
+        when(model_cus.userFound("huairu@mail.com", "A123123123123")).thenReturn(true);
+
+        MVPCusPresenter presenter = new MVPCusPresenter(model_cus, view_cus);
+        presenter.checkLoginStatus();
+
+        verify(view_cus).displayMessage("Should be Logged in successfully");
+    }
+
+    @Test
+    public void testPresenter_empty_cus(){
+        /***stubbing***/
+        when(view_cus.getEmail()).thenReturn("");
+
+        MVPCusPresenter presenter = new MVPCusPresenter(model_cus, view_cus);
+        presenter.checkLoginStatus();
+
+        verify(view_cus).displayMessage("Email cannot be empty");
+    }
+
+    @Test
+    public void testPresenter_EmailNotFound_cus(){
+        /***stubbing***/
+        when(view_cus.getEmail()).thenReturn("huairuhuairu@mail.com");
+
+
+        when(model_cus.emailExists("huairuhuairu@mail.com")).thenReturn(false);
+
+
+        MVPCusPresenter presenter = new MVPCusPresenter(model_cus, view_cus);
+        presenter.checkLoginStatus();
+
+        verify(view_cus).displayMessage("Email not found");
+    }
+
+
+    @Test
+    public void testPresenter_WrongPassword_cus(){
+        /***stubbing***/
+        when(view_cus.getEmail()).thenReturn("huairu@mail.com");
+        when(view_cus.getPassword()).thenReturn("A");
+
+        when(model_cus.emailExists("huairu@mail.com")).thenReturn(true);
+        when(model_cus.userFound("huairu@mail.com", "A")).thenReturn(false);
+
+        MVPCusPresenter presenter = new MVPCusPresenter(model_cus, view_cus);
+        presenter.checkLoginStatus();
+
+        verify(view_cus).displayMessage("Wrong Password");
+    }
+}
