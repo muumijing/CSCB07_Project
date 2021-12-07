@@ -1,4 +1,4 @@
-package com.example.cscb07_project.ownerlogin;
+package com.example.cscb07_project;
 
 import android.os.Bundle;
 import android.view.View;
