@@ -125,6 +125,43 @@ public class NewsAppHelper extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
+    public List<ShoppingRecord> getShoppingStoreRecord(ShoppingRecord data) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<ShoppingRecord> list = new ArrayList<>();
+        String sql = "select * from shopping_car where account = '" + data.getAccount() + "'"
+                + " and storeName != '" + data.getProductInfo().getStoreName() + "'";
+
+        Cursor cur = null;
+        try {
+            cur = db.rawQuery(sql, null);
+        } catch (Exception e) {
+            db.close();
+            throw e;
+        }
+        if (cur != null) {
+            if (cur.getCount() > 0) {
+                cur.moveToFirst();
+                do {
+                    ShoppingRecord shoppingRecord = new ShoppingRecord();
+                    shoppingRecord.setRecordId(cur.getInt(cur.getColumnIndex("shoppingRecordId")));
+                    shoppingRecord.setAccount(cur.getString(cur.getColumnIndex("account")));
+                    shoppingRecord.setProductAmount(cur.getInt(cur.getColumnIndex("amount")));
+                    ProductInfo productInfo = new ProductInfo();
+                    productInfo.setProductName(cur.getString(cur.getColumnIndex("productName")));
+                    productInfo.setStoreName(cur.getString(cur.getColumnIndex("storeName")));
+                    productInfo.setProductPrice(cur.getDouble(cur.getColumnIndex("productPrice")));
+                    shoppingRecord.setProductInfo(productInfo);
+                    list.add(shoppingRecord);
+                } while (cur.moveToNext());
+            }
+            cur.close();
+        }
+        db.close();
+        return list;
+
+    }
+
+    @SuppressLint("Range")
     public List<ShoppingRecord> getAllShoppingRecord(String account) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<ShoppingRecord> list = new ArrayList<>();

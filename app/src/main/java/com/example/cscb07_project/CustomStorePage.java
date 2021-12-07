@@ -59,7 +59,7 @@ public class CustomStorePage extends AppCompatActivity {
         returnToHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CustomStorePage.this, CustomStorePage.class);
+                Intent intent = new Intent(CustomStorePage.this, CustomerPage.class);
                 intent.putExtra("customerName", username);
                 intent.putExtra("customerId", customerId);
                 startActivity(intent);

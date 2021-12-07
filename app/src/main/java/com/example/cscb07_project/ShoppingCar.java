@@ -26,8 +26,6 @@ public class ShoppingCar extends AppCompatActivity {
     private String customerName;
     private String customerId;
 
-    private ArrayList<CustomProductView> list;
-
     //TODO 加入购物车的信息
     //    public static final String BUNDLE_ARG_ORDER_INFO = "ORDER_INFO";
     private NewCustomOrderInfoAdapter newCustomOrderInfoAdapter;
@@ -106,8 +104,7 @@ public class ShoppingCar extends AppCompatActivity {
     }
 
     private ArrayList<CustomProductView> getData(){
-//        ArrayList<CustomProductView> list = new ArrayList<>();
-        list = new ArrayList<>();
+        ArrayList<CustomProductView> list = new ArrayList<>();
         List<ShoppingRecord> data = DataManager.getInstance().getAllShoppingRecord(Global.account);
 
         if (data != null && data.size() > 0) {
@@ -124,7 +121,9 @@ public class ShoppingCar extends AppCompatActivity {
     }
 
     public void viewDetailShoppingCar () {
-        if (list != null && products != null) {
+        products = getData();
+        if (products != null) {
+
             Intent intent = new Intent(ShoppingCar.this, PopupActivity.class);
             OrderInfo orderInfo = new OrderInfo(customerId, "pending", customerName);
             orderInfo.setProductList(getData());

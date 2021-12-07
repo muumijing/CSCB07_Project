@@ -42,7 +42,6 @@ public class CustomProductPage extends AppCompatActivity {
     //ArrayList<Integer> arrayList_ProductPrice = new ArrayList<>();
     //ArrayList<Integer> arrayList_ProductQuantity = new ArrayList<>();
 
-    //TODO 测试加入购物车的数据列表
 //    private List<CustomProductView> customProductViewsInCars = new ArrayList<>();
 
     @Override
@@ -73,7 +72,6 @@ public class CustomProductPage extends AppCompatActivity {
     }
 
     public void viewShoppingCar(View view) {
-        //TODO 这个地方利用此界面加购物车的数据跳转
         Intent intent = new Intent(CustomProductPage.this, ShoppingCar.class);
         intent.putExtra("customerName", username);
         intent.putExtra("customerId", customerId);
@@ -131,7 +129,6 @@ public class CustomProductPage extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //TODO 从原界面回来重置数据
 //        customProductViewsInCars.clear();
     }
 
@@ -168,27 +165,35 @@ public class CustomProductPage extends AppCompatActivity {
         NewCustomProductAdapter customProductAdapter = new NewCustomProductAdapter(CustomProductPage.this, products, new NewCustomProductAdapter.OnWidgetDealListener() {
             @Override
             public void addShoppingCar(CustomProductView customProductView) {
-
                 ShoppingRecord shoppingRecord = new ShoppingRecord();
                 ProductInfo productInfo = new ProductInfo();
+                String storename;
                 productInfo.setProductName(customProductView.getProductName());
                 productInfo.setStoreName(customProductView.getStoreName());
                 productInfo.setProductPrice(customProductView.getProductPrice());
+                storename = customProductView.getStoreName();
                 shoppingRecord.setAccount(Global.account);
                 shoppingRecord.setProductInfo(productInfo);
+                DataManager.getInstance().getShoppingStoreRecord(shoppingRecord);
+                if(DataManager.getInstance().getShoppingStoreRecord(shoppingRecord)!= null &&  DataManager.getInstance().getShoppingStoreRecord(shoppingRecord).size() > 0){
+                    Toast.makeText(CustomProductPage.this, "can't add products from different store",Toast.LENGTH_SHORT).show();
 
-                int amount = DataManager.getInstance().getShoppingRecord(shoppingRecord).size();
-                if (amount > 0) {
-                    //存在就修改数量
-                    amount = DataManager.getInstance().getShoppingRecord(shoppingRecord).get(0).getProductAmount() + 1;
-                    shoppingRecord.setProductAmount(amount);
-                    DataManager.getInstance().alterShoppingRecord(shoppingRecord);
-                } else {
-                    //不存在添加一条数据
-                    shoppingRecord.setProductAmount(1);
-                    DataManager.getInstance().addShoppingRecord(shoppingRecord);
+
+                }else {
+                    int amount = DataManager.getInstance().getShoppingRecord(shoppingRecord).size();
+                    if (amount > 0) {
+                        //存在就修改数量
+                        amount = DataManager.getInstance().getShoppingRecord(shoppingRecord).get(0).getProductAmount() + 1;
+                        shoppingRecord.setProductAmount(amount);
+                        DataManager.getInstance().alterShoppingRecord(shoppingRecord);
+                    } else {
+                        //不存在添加一条数据
+                        shoppingRecord.setProductAmount(1);
+                        DataManager.getInstance().addShoppingRecord(shoppingRecord);
+                    }
+
+
                 }
-
             }
         });
         recyclerView.setAdapter(customProductAdapter);

@@ -42,11 +42,18 @@ public class DataManager {
         return new NewsAppHelper(context).alterShoppingRecord(data);
     }
 
+    public List<ShoppingRecord> getShoppingStoreRecord(ShoppingRecord data) {
+        if (context == null) {
+            return null;
+        }
+        data.setAccount(Global.account);
+        return new NewsAppHelper(context).getShoppingStoreRecord(data);
+    }
+
     public boolean deleteShoppingRecord(ShoppingRecord data) {
         if (context == null) {
             return false;
         }
-        data.setAccount(Global.account);
         return new NewsAppHelper(context).deleteShoppingRecord(data);
     }
 
@@ -59,6 +66,14 @@ public class DataManager {
     }
 
     public List<ShoppingRecord> getShoppingRecord(ShoppingRecord data) {
+        if (context == null) {
+            return null;
+        }
+        data.setAccount(Global.account);
+        return new NewsAppHelper(context).getShoppingRecord(data);
+    }
+
+    public List<ShoppingRecord> getShoppingRecordStore(ShoppingRecord data) {
         if (context == null) {
             return null;
         }
