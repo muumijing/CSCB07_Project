@@ -28,11 +28,13 @@ public class OwnerRegister extends AppCompatActivity {
 
     FirebaseDatabase db;
     DatabaseReference ref;
+    private Model model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_register);
+        model = Model.getInstance();
     }
 
     public void ownerRegister(View view){
@@ -74,6 +76,7 @@ public class OwnerRegister extends AppCompatActivity {
                 if(isValidInput && !registered){
                     Owner owner = new Owner(username, email, password, phoneNum);
                     ref.child(ownerId).setValue(owner);
+                    //model.register(email, password);
                     Toast.makeText(OwnerRegister.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(OwnerRegister.this, OwnerLogin.class));
                 }

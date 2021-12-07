@@ -58,7 +58,7 @@
             android:name=".allorders"
             android:exported="false" />
         <activity
-            android:name=".ownerlogin.MVPOwnerLogin"
+            android:name=".MVP_OwnerLogin_Activity"
             android:exported="false" />
         <activity
             android:name=".CreateStoreActivity"

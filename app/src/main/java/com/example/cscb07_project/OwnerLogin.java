@@ -24,17 +24,19 @@ public class OwnerLogin extends AppCompatActivity {
     private EditText inputPassword;
     private int tolerance = 3;
     private boolean found = false;
+    private Model model;
 
     private Button loginbtn;
-
+    private Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_login);
-
+        model = Model.getInstance();
         loginbtn = (Button) findViewById(R.id.ownerLogin);
         loginbtn.setOnClickListener(this::ownerLogin);
+
     }
 
     public void onOwnerRegister(View view){
@@ -42,7 +44,7 @@ public class OwnerLogin extends AppCompatActivity {
     }
     
         public void MVPOwnerLogin(View view){
-        startActivity(new Intent(this, MVPOwnerLogin.class));
+        startActivity(new Intent(this, MVP_OwnerLogin_Activity.class));
     }
 
     public void ownerLogin(View view){
@@ -62,6 +64,7 @@ public class OwnerLogin extends AppCompatActivity {
                     String e = ds.child("email").getValue(String.class);
 
                     String p = ds.child("password").getValue(String.class);
+
                     if(e.equals(email)){
                         found = true;
                         // System.out.println("found email");
@@ -74,6 +77,7 @@ public class OwnerLogin extends AppCompatActivity {
                             return;
                         }
                         else if(p.equals(password)){
+                            //presenter.ownerLogin(email,password);
                             Toast.makeText(OwnerLogin.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
                             write(ownerId, "login", "true");
                             Intent intent = new Intent(OwnerLogin.this, StoreOwnerPage.class);
@@ -110,4 +114,6 @@ public class OwnerLogin extends AppCompatActivity {
         ref = db.getReference("Owners");
         ref.child(userId).child(field).setValue(data);
     }
+
+
 }

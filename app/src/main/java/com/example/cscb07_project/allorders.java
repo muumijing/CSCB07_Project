@@ -21,6 +21,7 @@ public class allorders extends AppCompatActivity {
 
     public RecyclerView RV;
     public String storeName;
+    private String ownerId;
 
 
     // Arraylist for storing data
@@ -33,6 +34,7 @@ public class allorders extends AppCompatActivity {
         setContentView(R.layout.recyclerview);
         RV = findViewById(R.id.rv);
         storeName = getIntent().getStringExtra("storeName");
+        ownerId = getIntent().getStringExtra("ownerId");
         System.out.println(storeName);
 
 
@@ -77,6 +79,7 @@ public class allorders extends AppCompatActivity {
     public void back(View view){
         Intent intent = new Intent(allorders.this, StoreOwnerPage.class);
         intent.putExtra("storeName", storeName);
+        intent.putExtra("ownerId", ownerId);
         startActivity(intent);
     }
 

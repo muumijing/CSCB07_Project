@@ -1,6 +1,6 @@
 package com.example.cscb07_project;
 
-public class Customer extends User{
+public class Customer extends User  {
     public String customerId;
 
     public Customer(){}

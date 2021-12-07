@@ -9,7 +9,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -104,6 +103,17 @@ public class CustomerLogin extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         ref = db.getReference("Customers");
         ref.child(username).child(field).setValue(data);
+    }
+
+    public void linkToCustomerPage(String customerId){
+        Intent intent = new Intent(this,
+                CustomerPage.class);
+
+        startActivity(intent);
+    }
+
+    public void loginFailure(){
+        Toast.makeText(this, "fail to login", Toast.LENGTH_LONG).show();
     }
 
 

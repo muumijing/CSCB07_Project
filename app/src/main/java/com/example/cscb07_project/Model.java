@@ -4,13 +4,14 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.security.PublicKey;
 import java.util.function.Consumer;
 
 public class Model {
@@ -19,17 +20,19 @@ public class Model {
 
     private DatabaseReference storesRef;
     private DatabaseReference orderRef;
-    private DatabaseReference customerRef;
+    private DatabaseReference customersRef;
+    private DatabaseReference ownersRef;
 
     public String orderKey;
 
-    //private FirebaseAuth auth;
+    private FirebaseAuth auth;
 
     private Model() {
-
+        ownersRef = FirebaseDatabase.getInstance().getReference("Owners");
+        customersRef = FirebaseDatabase.getInstance().getReference("Customers");
         storesRef = FirebaseDatabase.getInstance().getReference("Stores");
         orderRef = FirebaseDatabase.getInstance().getReference("Orders");
-        //auth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
     }
 
     public static Model getInstance() {
@@ -37,6 +40,60 @@ public class Model {
             instance = new Model();
         return instance;
     }
+
+    public void authenticate1(String email, String password, Consumer<Owner> callback) {
+
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (!task.isSuccessful()) {
+
+                    callback.accept(null);
+                }
+                else {
+
+                    ownersRef.child("owner4379291314").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Owner owner = snapshot.getValue(Owner.class);
+                            callback.accept(owner);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull  DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void authenticate2(String email, String password, Consumer<Customer> callback) {
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (!task.isSuccessful()) {
+                    callback.accept(null);
+                }
+                else {
+                    customersRef.child(auth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Customer customer = snapshot.getValue(Customer.class);
+                            callback.accept(customer);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull  DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+
+
 
     public void postStore(Store store, Consumer<Boolean> callback) {
         storesRef.child(store.storeName).setValue(store).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -97,7 +154,7 @@ public class Model {
     }
 
     public  void getCustomer (String customerId, Consumer<Customer> callback){
-        customerRef.child(customerId).addListenerForSingleValueEvent(new ValueEventListener() {
+        customersRef.child(customerId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Customer customer = snapshot.getValue(Customer.class);
