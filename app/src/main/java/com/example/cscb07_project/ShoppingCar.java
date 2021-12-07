@@ -121,6 +121,7 @@ public class ShoppingCar extends AppCompatActivity {
     }
 
     public void viewDetailShoppingCar () {
+        products = getData();
         if (products != null) {
 
             Intent intent = new Intent(ShoppingCar.this, PopupActivity.class);

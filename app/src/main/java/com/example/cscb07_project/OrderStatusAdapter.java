@@ -23,7 +23,7 @@ public class OrderStatusAdapter extends ArrayAdapter<OrderInfo> {
     }
 
     private class ViewHolder {
-        TextView tvStoreName;
+//        TextView tvStoreName;
         TextView tvNumberOfItems;
         TextView tvOrderId;
     }
@@ -34,7 +34,7 @@ public class OrderStatusAdapter extends ArrayAdapter<OrderInfo> {
     public View getView(int position, View convertView, ViewGroup parent) {
         OrderInfo order = getItem(position);
         System.out.println("f");
-        String storeName = order.storeName;
+//        String storeName = order.storeName;
         String numberOfItems = ((Integer) order.productList.size()).toString();
         String OrderId = order.orderId;
 
@@ -45,7 +45,7 @@ public class OrderStatusAdapter extends ArrayAdapter<OrderInfo> {
             convertView = inflater.inflate(resource, parent, false);
             viewHolder = new ViewHolder();
 
-            viewHolder.tvStoreName = (TextView) convertView.findViewById(R.id.tvStoreName);
+//            viewHolder.tvStoreName = (TextView) convertView.findViewById(R.id.tvStoreName);
             viewHolder.tvNumberOfItems = (TextView) convertView.findViewById(R.id.tvTotalItems);
             viewHolder.tvOrderId = (TextView) convertView.findViewById(R.id.tvOrderId);
 
@@ -57,7 +57,7 @@ public class OrderStatusAdapter extends ArrayAdapter<OrderInfo> {
         }
 
 
-        viewHolder.tvStoreName.setText(storeName);
+//        viewHolder.tvStoreName.setText(storeName);
         viewHolder.tvNumberOfItems.setText(numberOfItems);
         viewHolder.tvOrderId.setText(OrderId);
 

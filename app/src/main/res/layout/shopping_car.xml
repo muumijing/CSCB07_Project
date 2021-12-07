@@ -9,75 +9,80 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
+        android:weightSum="100"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1.2"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="20"
             android:text="product"
-            android:textAlignment="textStart"
-            android:textSize="14sp" />
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            tools:ignore="RtlCompat" />
 
         <TextView
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
             android:text="store"
-            android:textAlignment="textStart"
-            android:textSize="14sp" />
+            android:layout_weight="20"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            tools:ignore="RtlCompat" />
 
         <TextView
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
             android:text="amount"
-            android:textAlignment="textStart"
-            android:textSize="14sp" />
+            android:layout_weight="20"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            tools:ignore="RtlCompat" />
 
         <TextView
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
             android:text="price"
-            android:textAlignment="textStart"
-            android:textSize="14sp" />
+            android:layout_weight="20"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            tools:ignore="RtlCompat" />
 
         <TextView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="20"
             android:text="Delete"
-            android:textAlignment="textStart"
-            android:textSize="14sp" />
+            android:gravity="center_vertical"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            tools:ignore="RtlCompat" />
 
     </LinearLayout>
 
     <ListView
         android:id="@+id/listViewStore"
         android:layout_width="match_parent"
-        android:layout_height="569dp"
+        android:layout_height="match_parent"
+        android:layout_weight="20"
         android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvOrderInfo"
         android:layout_width="match_parent"
-        android:layout_height="569dp"/>
+        android:layout_height="wrap_content"
+        android:layout_weight="90"/>
 
     <Button
         android:id="@+id/checkoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CheckOut"
-        android:layout_gravity="center">
-    </Button>
+        android:layout_gravity="center"
+        android:text="CheckOut" />
 
     <Button
         android:id="@+id/SCarReturnToHomeBtn"

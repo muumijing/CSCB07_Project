@@ -40,6 +40,7 @@ public class PopupActivity extends AppCompatActivity implements View.OnClickList
     private String storeName;
     private String status = "pending";
     private ArrayList<CustomProductView> productArrayList;
+    private String key;
 
     private Model model;
 
@@ -59,7 +60,7 @@ public class PopupActivity extends AppCompatActivity implements View.OnClickList
 
 
         dbRef = FirebaseDatabase.getInstance().getReference().child("Orders");
-        String key = dbRef.push().getKey();
+        key = dbRef.push().getKey();
 
         Intent intent = getIntent();
         customerName = intent.getStringExtra("customerName");
